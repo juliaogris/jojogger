@@ -1,0 +1,176 @@
+/* App */
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #777;
+}
+
+h1 {
+  margin-top: 20vh;
+  width: 100vw;
+  text-align: center;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav,
+.app {
+  width: 100%;
+  text-align: center;
+}
+
+nav {
+  border-bottom: 1px solid #e1e1e1;
+  font-size: 90%;
+  box-sizing: border-box;
+  height: 41px;
+}
+
+nav > button {
+  position: absolute;
+  padding: 0 1.5em;
+  top: 0;
+  right: 0;
+  border: none;
+  line-height: 40px;
+  background: none;
+  color: #777;
+}
+
+nav > button:hover {
+  color: #0288d1;
+}
+
+nav > button:focus {
+  outline: 0;
+}
+
+a {
+  line-height: 40px;
+  display: inline-block;
+  text-decoration: none;
+  color: #777;
+}
+
+a + a {
+  margin-left: 1em;
+}
+
+a:hover,
+.active {
+  color: #03a9f4;
+}
+
+input {
+  display: block;
+  margin-top: 1em;
+  padding: 0.6em;
+  border-radius: 2px;
+  border: 1px solid #e1e1e1;
+  color: #777;
+}
+
+input:focus {
+  border: 1px solid #aaa;
+  outline: 0;
+}
+
+.login {
+  padding-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login button {
+  background: #03a9f4;
+  color: white;
+  font-size: 75%;
+  margin: 2em 0.7em 0;
+  padding: 0.5em;
+  width: 5em;
+  border: none;
+  border-radius: 4px;
+}
+
+.login button:hover {
+  background: #0288d1;
+}
+
+.error {
+  color: #d32f2f;
+  padding: 2em 20vw 0;
+  line-height: 1.4;
+  font-size: 90%;
+}
+
+table {
+  margin-top: 5px;
+  font-size: 80%;
+  border: 0px solid red;
+}
+
+td {
+  padding: 8px;
+  line-height: 1.6;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+  text-align: right;
+}
+
+thead td {
+  text-align: center;
+  font-weight: bold;
+}
+
+.edit-button {
+  background: none;
+}
+
+.drp {
+  position: relative;
+  bottom: 2px;
+}
+
+.add-button-wrap {
+  position: relative;
+}
+
+.add-button {
+  position: absolute;
+  background: #03a9f4;
+  color: white;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  top: -29px;
+  left: 0px;
+  box-shadow: 2px 2px 2px 0 rgba(41, 41, 41, .3);
+}
+
+.add-icon {
+  position: absolute;
+  width: 30px;
+  height: 36px;
+  left: 5px;
+  top: 2px;
+}
+
+.runs {
+  margin-top:8px;
+  border: 0px solid blue;
+}
+
+.weekly-head td {
+  border: none;
+}
