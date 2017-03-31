@@ -1,8 +1,12 @@
 const express = require('express')
 const path = require('path')
+const emojiFavicon = require('emoji-favicon')
 
 const app = express()
 const PORT = process.env.PORT || 5000
+
+// Runner favicon
+app.use(emojiFavicon('runner'))
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')))
