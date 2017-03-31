@@ -32,13 +32,8 @@ Requirements
 * End to end tests
 * Keep design as tidy as possible.
 
-Questions
----------
-
-* Can I use Firebase?
-* How should I understand the 3 roles? (especially the user manager)
 
 TODO
 ----
-* Forgot password
-* Nicer login UI like Auth0 screenshot
+* Nicer login UI like Auth0 screenshot for login
+* Check on IE and ios
