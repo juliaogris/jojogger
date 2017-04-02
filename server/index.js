@@ -1,27 +1,34 @@
 const express = require('express')
 const path = require('path')
 const emojiFavicon = require('emoji-favicon')
+const bodyParser = require('body-parser')
+const expressValidator = require('express-validator')
+const pretty = require('express-prettify')
+const morgan = require('morgan')
+const passport = require('passport')
+
+const dbInit = require('./dbInit')
+const apiRouter = require('./routers/apiRouter')
 
 const app = express()
-const PORT = process.env.PORT || 5000
+const REACT_DIR = path.resolve(__dirname, '../react-ui/build')
+const REACT_INDEX_HTML = path.resolve(REACT_DIR, 'index.html')
 
-// Runner favicon
+app.use(express.static(REACT_DIR))
+app.use(bodyParser.json())
+app.use(expressValidator())
+app.use(morgan('dev'))
+app.use(pretty({ query: 'pretty' }))
+app.use(passport.initialize())
+
 app.use(emojiFavicon('runner'))
-
-// Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, '../react-ui/build')))
-
-// Answer API requests.
-app.get('/api', function (req, res) {
-  res.set('Content-Type', 'application/json')
-  res.send('{"message":"Hello from the custom server!"}')
+app.use('/api', apiRouter)
+app.use((err, req, res, next) => {
+  console.log(err)
+  console.log(err.stack)
+  res.status(err.status || 500).send({'Error': err.stack})
 })
 
-// All remaining requests return the React app, so it can handle routing.
-app.get('*', function (request, response) {
-  response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'))
-})
+app.get('*', (req, res) => res.sendFile(REACT_INDEX_HTML))
 
-app.listen(PORT, function () {
-  console.log(`Listening on port ${PORT}`)
-})
+dbInit(() => { app.listen(process.env.PORT) })
