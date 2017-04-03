@@ -1,4 +1,6 @@
 var mongoose = require('mongoose')
+require('../models/User')
+require('../models/Jog')
 
 module.exports = (done) => {
   mongoose.Promise = global.Promise

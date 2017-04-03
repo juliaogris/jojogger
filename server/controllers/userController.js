@@ -1,4 +1,5 @@
-const User = require('../models/user')
+const mongoose = require('mongoose')
+const User = mongoose.model('User')
 const getErrorMessage = require('../util/funcs').getErrorMessage
 
 const makeErr = (code, message) => ({ error: { code, message } })

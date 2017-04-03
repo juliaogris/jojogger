@@ -16,3 +16,11 @@ module.exports.durationValidator = (duration) => {
   }
   return Number(duration.substring(0, 2)) >= 0
 }
+
+module.exports.notFound = (req, res) => {
+  res.status(404).send({
+    error: {
+      code: 404,
+      message: `Cannot ${req.method} ${req.path}`
+    }})
+}

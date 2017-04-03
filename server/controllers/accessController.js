@@ -14,10 +14,21 @@ exports.canAccessUsers = (req, res, next) => {
 }
 
 exports.canAccessUser = (req, res, next) => {
-  const authedId = String(req.user._id)
-  const authedRole = req.user.role
-  const userId = req.params.uid
-  if (authedRole !== 'admin' && authedRole !== 'manager' && userId !== authedId) {
+  const authedUserId = String(req.user._id)
+  const authedUserRole = req.user.role
+  const requestUserId = req.params.uid
+  if (authedUserRole !== 'admin' && authedUserRole !== 'manager' &&
+      requestUserId !== authedUserId) {
+    return res.status(403).send(accessError)
+  }
+  next()
+}
+
+exports.canAccessJogs = (req, res, next) => {
+  const authedUserId = String(req.user._id)
+  const authedUserRole = req.user.role
+  const requestUserId = req.params.uid
+  if (authedUserRole !== 'admin' && requestUserId !== authedUserId) {
     return res.status(403).send(accessError)
   }
   next()

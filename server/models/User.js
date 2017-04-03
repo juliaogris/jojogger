@@ -58,4 +58,5 @@ UserSchema.methods.verifyPassword = function (password, callback) {
     callback(null, isMatch)
   })
 }
+
 module.exports = mongoose.model('User', UserSchema)

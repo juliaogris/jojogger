@@ -1,6 +1,7 @@
-var passport = require('passport')
-var BasicStrategy = require('passport-http').BasicStrategy
-var User = require('../models/user')
+const passport = require('passport')
+const BasicStrategy = require('passport-http').BasicStrategy
+const mongoose = require('mongoose')
+const User = mongoose.model('User')
 
 passport.use(new BasicStrategy((email, password, callback) => {
   User.findOne({ email }, function (err, user) {

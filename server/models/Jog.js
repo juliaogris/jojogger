@@ -28,6 +28,10 @@ const JogSchema = new mongoose.Schema({
       message: "Invalid distance format. Must be greater 0.0'"
     },
     required: 'Distance missing.'
+  },
+  uid: {
+    type: String,
+    required: true
   }
 })
 
