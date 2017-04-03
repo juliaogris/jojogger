@@ -31,4 +31,4 @@ const JogSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('User', JogSchema)
+module.exports = mongoose.model('Job', JogSchema)
