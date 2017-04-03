@@ -41,7 +41,7 @@ exports.deleteJogs = (req, res) => {
 }
 
 // PUT, DELETE /api/users/:uid/jogs/:id
-const handleFindJogError = (req, res, err, jog) => {
+const handleFindJogError = (req, res, err, jogs) => {
   const id = req.params.id
   if (err) {
     if (err.name === 'CastError') {
@@ -50,18 +50,31 @@ const handleFindJogError = (req, res, err, jog) => {
     }
     return res.status(500).send(err)
   }
-  if (!jog) {
-    const message = `No jog found with id '${id}'.`
+  if (!jogs || jogs.length === 0) {
+    const message = `No jog found with id '${id}' for user ${req.user.email}.`
     return res.status(400).send(makeErr(400, message))
   }
 }
 
-exports.putJog = (req, res) => {
-  const id = req.params.id
-  Jog.findById(id, (err, jog) => {
-    if (err || !jog) {
-      return handleFindJogError(req, res, err, jog)
+exports.getJog = (req, res) => {
+  const _id = req.params.id
+  const uid = req.params.uid
+  Jog.find({ _id, uid }, (err, jogs) => {
+    if (err || !jogs || jogs.length === 0) {
+      return handleFindJogError(req, res, err, jogs)
     }
+    res.json(jogs[0])
+  })
+}
+
+exports.putJog = (req, res) => {
+  const _id = req.params.id
+  const uid = req.params.uid
+  Jog.find({ _id, uid }, (err, jogs) => {
+    if (err || !jogs || jogs.length === 0) {
+      return handleFindJogError(req, res, err, jogs)
+    }
+    const jog = jogs[0]
     jog.date = req.body.date || jog.date
     jog.duration = req.body.duration || jog.duration
     jog.distance = req.body.distance || jog.distance
@@ -78,12 +91,13 @@ exports.putJog = (req, res) => {
 }
 
 exports.deleteJog = (req, res) => {
-  const id = req.params.id
-  Jog.findById(id, (err, jog) => {
-    if (err || !jog) {
-      return handleFindJogError(req, res, err, jog)
+  const _id = req.params.id
+  const uid = req.params.uid
+  Jog.find({ _id, uid }, (err, jogs) => {
+    if (err || !jogs || jogs.length === 0) {
+      return handleFindJogError(req, res, err, jogs)
     }
-    jog.remove((err, j) => {
+    jogs[0].remove((err, j) => {
       if (err) {
         return res.status(500).send(err)
       }
