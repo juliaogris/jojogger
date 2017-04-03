@@ -23,7 +23,8 @@ exports.postJog = (req, res) => {
 }
 
 exports.getJogs = (req, res) => {
-  Jog.find({ uid: req.params.uid }, (err, jogs) => {
+  const uid = req.params.uid
+  Jog.find({ uid }, (err, jogs) => {
     if (err) {
       return res.status(500).send(err)
     }
@@ -32,7 +33,8 @@ exports.getJogs = (req, res) => {
 }
 
 exports.deleteJogs = (req, res) => {
-  Jog.remove({ uid: req.params.uid }, (err, jogs) => {
+  const uid = req.params.uid
+  Jog.remove({ uid }, (err, jogs) => {
     if (err) {
       return res.status(500).send(err)
     }
