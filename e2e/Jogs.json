@@ -1,0 +1,514 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Jogs",
+		"_postman_id": "9ff45db4-2bb0-5ad0-1839-e7b053448dd8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/users/{{admin}}/jogs  [admin]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body is correct\"] = responseBody === \"[]\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{admin}}/jogs",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [admin]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [regular]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [manager]  - no access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"",
+							"tests[\"Body matches: User does not have access rights \"] = responseBody.has(\"User does not have access rights\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [regular]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches 'Create jog'\"] = responseBody.has(\"Created jog \");"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"2017-01-13\",\n\t\"duration\": \"00:33:27\",\n\t\"distance\": \"3.3\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [admin]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches 'Create jog'\"] = responseBody.has(\"Created jog \");"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"2017-01-15\",\n\t\"duration\": \"01:33:27\",\n\t\"distance\": \"13.3\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [manager] - no access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"",
+							"tests[\"Body matches: User does not have access rights \"] = responseBody.has(\"User does not have access rights\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"2017-01-15\",\n\t\"duration\": \"01:33:27\",\n\t\"distance\": \"13.3\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "illigal URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404\"] = responseCode.code === 404;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/usersXYZ/{{regular}}/jogs",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"2017-01-15\",\n\t\"duration\": \"01:33:27\",\n\t\"distance\": \"13.3\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [regular]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests['Body contains \"duration\":\"00:33:27\"'] = responseBody.has('\"duration\":\"00:33:27\"');",
+							"tests['Body contains \"duration\":\"01:33:27\"'] = responseBody.has('\"duration\":\"01:33:27\"');"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [regular]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches 'Deleted jogs'\"] = responseBody.has(\"Deleted jogs for user regular@x.co\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"2017-01-13\",\n\t\"duration\": \"00:33:27\",\n\t\"distance\": \"3.3\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{regular}}/jogs  [regular]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body is correct\"] = responseBody === \"[]\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{regular}}/jogs",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{{manager}}/jogs  [regular] - no access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"tests[\"Body matches: User does not have access rights \"] = responseBody.has(\"User does not have access rights\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{manager}}/jogs",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
