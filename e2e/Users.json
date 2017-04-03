@@ -55,7 +55,7 @@
 			},
 			"response": [
 				{
-					"id": "4cae1c33-61d1-4a6f-b04d-ad63df27b410",
+					"id": "da639f1a-aede-410d-8d8b-ea029c498fd0",
 					"name": "allUsers",
 					"originalRequest": {
 						"url": "localhost:5000/api/users/",
@@ -173,7 +173,7 @@
 			},
 			"response": [
 				{
-					"id": "1025edfc-6339-40cc-b801-db96e37293d0",
+					"id": "1067806b-c0f3-47e0-a095-4379baf3a085",
 					"name": "allUsers",
 					"originalRequest": {
 						"url": "localhost:5000/api/users/",
@@ -438,7 +438,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"url": "{{host}}/api/users/{{admin}}",
 				"method": "GET",
 				"header": [
 					{
@@ -485,7 +485,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0f4488fe4bb2ff5a275f9",
+				"url": "{{host}}/api/users/{{manager}}",
 				"method": "GET",
 				"header": [
 					{
@@ -532,7 +532,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"url": "{{host}}/api/users/{{admin}}",
 				"method": "GET",
 				"header": [
 					{
@@ -579,7 +579,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"url": "{{host}}/api/users/{{admin}}",
 				"method": "GET",
 				"header": [
 					{
@@ -617,7 +617,7 @@
 				}
 			],
 			"request": {
-				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"url": "{{host}}/api/users/{{admin}}",
 				"method": "GET",
 				"header": [
 					{
@@ -660,7 +660,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"url": "{{host}}/api/users/{{regular}}",
 				"method": "PUT",
 				"header": [
 					{
@@ -709,7 +709,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"url": "{{host}}/api/users/{{regular}}",
 				"method": "PUT",
 				"header": [
 					{
@@ -756,7 +756,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"url": "{{host}}/api/users/{{regular}}",
 				"method": "GET",
 				"header": [
 					{
@@ -803,7 +803,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"url": "{{host}}/api/users/{{regular}}",
 				"method": "PUT",
 				"header": [
 					{
@@ -1040,7 +1040,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"url": "{{host}}/api/users/{{admin}}",
 				"method": "PUT",
 				"header": [
 					{
