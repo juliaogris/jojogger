@@ -86,4 +86,5 @@ TODO
 * Clean instal - make sure all node packaging is good.
 * Wrap unauthorized in JSON error
 * write deploy and dev instructions
-* testing!!
+* IE testing
+* JEST testing
