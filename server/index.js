@@ -7,7 +7,7 @@ const pretty = require('express-prettify')
 const morgan = require('morgan')
 const passport = require('passport')
 
-const dbInit = require('./dbInit')
+const dbInit = require('./util/dbInit')
 const apiRouter = require('./routers/apiRouter')
 
 const app = express()

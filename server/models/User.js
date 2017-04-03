@@ -58,14 +58,4 @@ UserSchema.methods.verifyPassword = function (password, callback) {
     callback(null, isMatch)
   })
 }
-
-UserSchema.statics.getErrorMessage = (err) => {
-  if (!err || !err.errors) {
-    return ''
-  }
-  const errors = err.errors
-  const extractMessage = key => err.errors[key].message
-  return Object.keys(errors).map(extractMessage).join(' ')
-}
-
 module.exports = mongoose.model('User', UserSchema)

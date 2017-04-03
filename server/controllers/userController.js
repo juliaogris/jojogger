@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const getErrorMessage = require('../util/funcs').getErrorMessage
 
 const makeErr = (code, message) => ({ error: { code, message } })
 
@@ -12,7 +13,7 @@ exports.postUser = (req, res) => {
   user.save((err) => {
     if (err) {
       if (err.name === 'ValidationError') {
-        return res.status(400).send(makeErr(303, User.getErrorMessage(err)))
+        return res.status(400).send(makeErr(303, getErrorMessage(err)))
       }
       if (err.code === 11000) {
         const message = `User '${user.email}' already exists.`
@@ -82,7 +83,7 @@ exports.putUser = (req, res) => {
     user.save((err) => {
       if (err) {
         if (err.name === 'ValidationError') {
-          return res.status(400).send(makeErr(303, User.getErrorMessage(err)))
+          return res.status(400).send(makeErr(303, getErrorMessage(err)))
         }
         return res.status(500).send(err)
       }
