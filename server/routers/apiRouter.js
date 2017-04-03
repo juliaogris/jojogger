@@ -10,9 +10,9 @@ apiRouter.get('/', (req, res) => {
 })
 
 const { canAccessUsers } = accessController
-const { getUsers, postUser, validateNewUser } = userController
+const { getUsers, postUser } = userController
 apiRouter.route('/users')
-  .post(validateNewUser, postUser)
+  .post(postUser)
   .get(isAuthed, canAccessUsers, getUsers)
 
 const { canAccessUser } = accessController

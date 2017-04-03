@@ -11,13 +11,18 @@ const UserSchema = new mongoose.Schema({
     validate: {
       isAsync: false,
       validator: validator.isEmail,
-      message: "Ivalid email address '{VALUE}'."
+      message: 'Invalid email address.'
     },
-    required: 'Missing email address.'
+    required: 'Email address missing.'
   },
   password: {
     type: String,
-    required: true
+    validate: {
+      isAsync: false,
+      validator: (s) => validator.isLength(s, {min: 6}),
+      message: 'Password too short. Minimum 6 characters.'
+    },
+    required: 'Password missing.'
   },
   role: {
     type: String,
@@ -52,6 +57,15 @@ UserSchema.methods.verifyPassword = function (password, callback) {
     }
     callback(null, isMatch)
   })
+}
+
+UserSchema.statics.getErrorMessage = (err) => {
+  if (!err || !err.errors) {
+    return ''
+  }
+  const errors = err.errors
+  const extractMessage = key => err.errors[key].message
+  return Object.keys(errors).map(extractMessage).join(' ')
 }
 
 module.exports = mongoose.model('User', UserSchema)
