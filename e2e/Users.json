@@ -1,0 +1,1348 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Users",
+		"_postman_id": "915b532e-1b07-51d0-a6e1-661de6c025ce",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users [admin]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains admin users\"] = responseBody.has('{\"_id\":\"58e0d0af542e0921b3909f73\",\"email\":\"admin@x.co\",\"password\":\"$2a$10$ylfZXLtgJ7Q1nXqe6ugbpeK/0/O0ZYzTMaxqJFf20XkfgAX5lxlfq\",\"__v\":0,\"role\":\"admin\"}');",
+							"tests[\"First user's email is admin@x.co\"] = JSON.parse(responseBody)[0].email === \"admin@x.co\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test2@x.co\",\n\t\"password\": \"1234567\"\n}"
+				},
+				"description": ""
+			},
+			"response": [
+				{
+					"id": "4cae1c33-61d1-4a6f-b04d-ad63df27b410",
+					"name": "allUsers",
+					"originalRequest": {
+						"url": "localhost:5000/api/users/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"enabled": true,
+								"description": "The mime type of this content",
+								"disabled": false
+							},
+							{
+								"key": "Authorization",
+								"name": "Authorization",
+								"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test2@x.co\",\n\t\"password\": \"1234567\"\n}"
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Length",
+							"value": "622",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 02 Apr 2017 12:14:04 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"26e-NlFCWYJN8bfg0h7gq/aSD8Zh1Cc\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 1006,
+					"body": "[{\"_id\":\"58e0d0af542e0921b3909f73\",\"email\":\"admin@x.co\",\"password\":\"$2a$10$ylfZXLtgJ7Q1nXqe6ugbpeK/0/O0ZYzTMaxqJFf20XkfgAX5lxlfq\",\"__v\":0,\"role\":\"admin\"},{\"_id\":\"58e0d0b0542e0921b3909f74\",\"email\":\"manager@x.co\",\"password\":\"$2a$10$SO.c5PoMc5VD66vBgLa6QOlMuABTJ992WKE9MzGplq7m0Imz7ld2C\",\"__v\":0,\"role\":\"regular\"},{\"_id\":\"58e0d0b1542e0921b3909f75\",\"email\":\"regular@x.co\",\"password\":\"$2a$10$A15VxyfxgggEa5Z4dvf7ROc.n0wNvwOp8PINZKTtPyBNdMIFJgOV.\",\"__v\":0,\"role\":\"regular\"},{\"_id\":\"58e0dcbc68d167277d6dd016\",\"email\":\"test@x.co\",\"password\":\"$2a$10$2xhFbTrXCwkrOkfIDlkvvuGgRWM0zBKockOJWAEA4TX4KjeBOQH2S\",\"__v\":0,\"role\":\"regular\"}]"
+				}
+			]
+		},
+		{
+			"name": "users [regular - no access]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403 - forbidden\"] = responseCode.code === 403;",
+							"tests[\"Body contains 'no access' string\"] = responseBody.has(\"User does not have access\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test2@x.co\",\n\t\"password\": \"1234567\"\n}"
+				},
+				"description": ""
+			},
+			"response": [
+				{
+					"id": "1025edfc-6339-40cc-b801-db96e37293d0",
+					"name": "allUsers",
+					"originalRequest": {
+						"url": "localhost:5000/api/users/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"enabled": true,
+								"description": "The mime type of this content",
+								"disabled": false
+							},
+							{
+								"key": "Authorization",
+								"name": "Authorization",
+								"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test2@x.co\",\n\t\"password\": \"1234567\"\n}"
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Length",
+							"value": "622",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 02 Apr 2017 12:14:04 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"26e-NlFCWYJN8bfg0h7gq/aSD8Zh1Cc\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 1006,
+					"body": "[{\"_id\":\"58e0d0af542e0921b3909f73\",\"email\":\"admin@x.co\",\"password\":\"$2a$10$ylfZXLtgJ7Q1nXqe6ugbpeK/0/O0ZYzTMaxqJFf20XkfgAX5lxlfq\",\"__v\":0,\"role\":\"admin\"},{\"_id\":\"58e0d0b0542e0921b3909f74\",\"email\":\"manager@x.co\",\"password\":\"$2a$10$SO.c5PoMc5VD66vBgLa6QOlMuABTJ992WKE9MzGplq7m0Imz7ld2C\",\"__v\":0,\"role\":\"regular\"},{\"_id\":\"58e0d0b1542e0921b3909f75\",\"email\":\"regular@x.co\",\"password\":\"$2a$10$A15VxyfxgggEa5Z4dvf7ROc.n0wNvwOp8PINZKTtPyBNdMIFJgOV.\",\"__v\":0,\"role\":\"regular\"},{\"_id\":\"58e0dcbc68d167277d6dd016\",\"email\":\"test@x.co\",\"password\":\"$2a$10$2xhFbTrXCwkrOkfIDlkvvuGgRWM0zBKockOJWAEA4TX4KjeBOQH2S\",\"__v\":0,\"role\":\"regular\"}]"
+				}
+			]
+		},
+		{
+			"name": "users [unauthorized]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 401 - unauthorised\"] = responseCode.code === 401;",
+							"tests[\"Body contains 'Unauthorized' string\"] = responseBody.has(\"Unauthorized\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{host}}/api/users",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "new user: test1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'Created user' string\"] = responseBody.has(\"Created user\");",
+							"postman.setEnvironmentVariable(\"test1\", JSON.parse(responseBody).uid) ",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{host}}/api/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"test1@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "new user: test2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'Created user' string\"] = responseBody.has(\"Created user\");",
+							"postman.setEnvironmentVariable(\"test2\", JSON.parse(responseBody).uid) "
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{host}}/api/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"test2@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "new user: bad email, missing password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"tests[\"Body contains 'Invalid email' string\"] = responseBody.has(\"Invalid email\");",
+							"tests[\"Body contains 'Password missing' string\"] = responseBody.has(\"Password missing\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{host}}/api/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"badx.co\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "new user: missing email, bad password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"tests[\"Body contains 'Password too short' string\"] = responseBody.has(\"Password too short\");",
+							"tests[\"Body contains 'Email address missing' string\"] = responseBody.has(\"Email address missing\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{host}}/api/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"password\": \"12345\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:admin_id [admin]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'role: admin' string\"] = responseBody.has('\"role\":\"admin\"');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:manager_id [admin]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'role: manager' string\"] = responseBody.has('\"role\":\"manager\"');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0f4488fe4bb2ff5a275f9",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:admin_id [regular - no access]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"tests[\"Body contains\"] = responseBody.has('not have access rights');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:admin_id [manager - no access]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'role: admin' string\"] = responseBody.has('\"role\":\"admin\"');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:admin_id [unauthorized]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 401 - unauthorised\"] = responseCode.code === 401;",
+							"tests[\"Body contains 'Unauthorized' string\"] = responseBody.has(\"Unauthorized\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:regular_id [admin]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'regular@x.co' string\"] = responseBody.has('regular@x.co');",
+							"tests[\"Body contains 'Updated user' string\"] = responseBody.has('Updated user');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"role\": \"manager\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:regular_id [regular]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'Updated user' string\"] = responseBody.has('Updated user');",
+							"tests[\"Body contains 'regular@x.co' string\"] = responseBody.has('regular@x.co');",
+							"tests[\"Body contains 'regular2@x.co' string\"] = responseBody.has('regular2@x.co');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"regular2@x.co\", \"password\": \"1234567\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:regular_id [regular]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'role: manager' string\"] = responseBody.has('\"role\":\"manager\"');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular2@x.co",
+						"password": "1234567",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhcjJAeC5jbzoxMjM0NTY3",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:regular_id [admin] (reset)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'Updated user' string\"] = responseBody.has('Updated user');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0f49a8fe4bb2ff5a275fb",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"regular@x.co\",\n\"password\": \"123456\",\n\"role\": \"regular\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'Updated user' string\"] = responseBody.has('Updated user');",
+							"tests[\"Body contains 'test1@x.co' string\"] = responseBody.has('test1@x.co');",
+							"tests[\"Body contains 'test1_1@x.co' string\"] = responseBody.has('test1_1@x.co');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"test1_1@x.co\",\n\"password\": \"1234567\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager] - bad email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"tests[\"Body contains 'Invalid email address' string\"] = responseBody.has('Invalid email address');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"badx.co\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager] - bad password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"tests[\"Body contains 'Password too short.' string\"] = responseBody.has('Password too short.');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"password\": \"123\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager] - role, no access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"tests[\"Body contains 'Only admins can update roles' string\"] = responseBody.has('Only admins can update roles');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"role\": \"manager\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:admin_id [manager] - no access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"tests[\"Body contains 'Cannot update admin users' string\"] = responseBody.has('Cannot update admin users');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/58e0d0af542e0921b3909f73",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"admin@x.co\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'Removed user test1_1@x.co' string\"] = responseBody.has(\"Removed user 'test1_1@x.co'\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager] - not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"tests[\"Body contains 'No user found\"] = responseBody.has(\"No user found\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager] - not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"tests[\"Body contains 'No user found' string\"] = responseBody.has(\"No user found\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test1_id [manager] - not found copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"tests[\"Body contains 'No user found' string\"] = responseBody.has(\"No user found\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "manager@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test1}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"test1_2@x.co\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test2_id [regular] - no access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"tests[\"Body contains 'User does not have access rights' string\"] = responseBody.has(\"User does not have access rights.\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "regular@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test2}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/:test2_id [test2]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains 'Removed user test2@x.co' string\"] = responseBody.has(\"Removed user 'test2@x.co'\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "test2@x.co",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{host}}/api/users/{{test2}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDJAeC5jbzoxMjM0NTY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
