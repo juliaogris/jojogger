@@ -9,7 +9,7 @@ const { canAccessUsers, canAccessUser, canAccessJogs } = accessController
 const { getUsers, postUser } = userController
 const { getUser, putUser, deleteUser } = userController
 const { getJogs, postJog, deleteJogs } = jogController
-const { putJog, deleteJog } = jogController
+const { getJog, putJog, deleteJog } = jogController
 const apiRouter = express.Router()
 
 apiRouter.route('/users')
@@ -27,6 +27,7 @@ apiRouter.route('/users/:uid/jogs')
   .delete(isAuthed, canAccessJogs, deleteJogs)
 
 apiRouter.route('/users/:uid/jogs/:id')
+  .get(isAuthed, canAccessJogs, getJog)
   .put(isAuthed, canAccessJogs, putJog)
   .delete(isAuthed, canAccessJogs, deleteJog)
 
