@@ -36,7 +36,7 @@ exports.deleteJogs = (req, res) => {
     if (err) {
       return res.status(500).send(err)
     }
-    res.json(jogs)
+    res.json({ message: `Deleted jogs for user ${req.user.email}.` })
   })
 }
 
