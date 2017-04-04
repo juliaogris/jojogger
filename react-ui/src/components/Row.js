@@ -1,19 +1,19 @@
 import React, { Component, PropTypes } from 'react'
 import Pencil from '../svgs/Pencil'
-import {getSpeed} from '../helpers'
+import { getSpeed } from '../util/funcs'
 
-function trimTime (timeString) {
-  let time = timeString
-  if (time.startsWith('00:')) {
-    time = time.substring(3)
+function trimDuration (duration) {
+  let d = duration
+  if (d.startsWith('00:')) {
+    d = d.substring(3)
   }
-  if (time.startsWith('0')) {
-    time = time.substring(1)
+  if (d.startsWith('0')) {
+    d = d.substring(1)
   }
-  return time
+  return d
 }
 
-function EditButton ({onEdit, id}) {
+function EditButton ({ onEdit, id }) {
   return (
     <button onClick={() => onEdit(id)} className='edit-button'>
       <Pencil color={'#777'} />
@@ -22,18 +22,17 @@ function EditButton ({onEdit, id}) {
 }
 
 export default class Row extends Component {
-
   render () {
-    const { onEdit, id, run } = this.props
-    const { date, time, distance } = run
-    const trimmedTime = trimTime(time)
-    const speed = getSpeed(time, distance).toFixed(2)
+    const { onEdit, id, jog } = this.props
+    const { date, duration, distance } = jog
+    const trimmedDuration = trimDuration(duration)
+    const speed = getSpeed(duration, distance).toFixed(2)
 
     return (
       <tr>
         <td>{date}</td>
         <td>{distance.toFixed(2)}</td>
-        <td>{trimmedTime}</td>
+        <td>{trimmedDuration}</td>
         <td>{speed}</td>
         { onEdit && <td> <EditButton onEdit={onEdit} id={id} /> </td> }
       </tr>
@@ -42,5 +41,5 @@ export default class Row extends Component {
 }
 
 Row.propTypes = {
-  run: PropTypes.object.isRequired
+  jog: PropTypes.object.isRequired
 }

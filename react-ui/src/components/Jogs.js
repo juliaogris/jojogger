@@ -3,38 +3,57 @@ import { DateRangePicker } from 'react-dates'
 import Row from '../components/Row'
 import Plus from '../svgs/Plus'
 import '../css/datepicker.css'
+import moment from 'moment'
 
-export default class Runs extends Component {
+export default class Jogs extends Component {
   constructor () {
     super()
     let focusedInput = null
     this.state = {
       focusedInput,
+      jogs: [],
       startDate: null,
       endDate: null
     }
+    this.onDatesChange = this.onDatesChange.bind(this)
   }
 
-  onEdit (runId) {
-    console.log('onEdit', runId)
+  onEdit (jogId) {
+    console.log('onEdit', jogId)
+  }
+
+  onDatesChange ({ startDate, endDate }) {
+    const between = j => moment(j.date).isBetween(startDate, endDate, 'day', '[]')
+    const jogs = this.props.jogs.filter(between)
+    this.setState({ startDate, endDate, jogs })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { jogs } = nextProps
+    let startDate = null
+    let endDate = null
+    if (jogs.length > 0) {
+      startDate = moment(jogs[0].date)
+      endDate = moment(jogs[jogs.length - 1].date)
+    }
+    this.setState({ startDate, endDate, jogs })
   }
 
   render () {
-    const { runs } = this.props
-    const runKeys = Object.keys(runs).sort()
-    const renderRow = (runKey) => (
+    const { startDate, endDate, jogs } = this.state
+    const renderRow = (jog) => (
       <Row
-        run={runs[runKey]}
+        jog={jog}
         onEdit={this.onEdit}
-        id={runKey}
-        key={runKey} />
+        id={jog.id}
+        key={jog.id} />
     )
     return (
-      <div className='runs'>
+      <div className='jogs'>
         <DateRangePicker
-          startDate={this.state.startDate}
-          endDate={this.state.endDate}
-          onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+          startDate={startDate}
+          endDate={endDate}
+          onDatesChange={this.onDatesChange}
           focusedInput={this.state.focusedInput}
           onFocusChange={focusedInput => this.setState({ focusedInput })}
           numberOfMonths={1}
@@ -43,6 +62,7 @@ export default class Runs extends Component {
           showDefaultInputIcon
           showClearDates
           keepOpenOnDateSelect={false}
+          isOutsideRange={day => !(day.isSameOrBefore(moment(), 'day'))}
           displayFormat='YYYY-MM-DD'
         />
         <table>
@@ -50,7 +70,7 @@ export default class Runs extends Component {
             <tr>
               <td>Date</td>
               <td>Distance</td>
-              <td>Time</td>
+              <td>Duration</td>
               <td>Speed</td>
               <td>
                 <div className='add-button-wrap'>
@@ -60,7 +80,7 @@ export default class Runs extends Component {
             </tr>
           </thead>
           <tbody>
-            { runKeys.map(renderRow) }
+            { jogs.map(renderRow) }
           </tbody>
         </table>
       </div>
@@ -68,6 +88,6 @@ export default class Runs extends Component {
   }
 }
 
-Runs.propTypes = {
-  runs: PropTypes.object.isRequired
+Jogs.propTypes = {
+  jogs: PropTypes.array.isRequired
 }

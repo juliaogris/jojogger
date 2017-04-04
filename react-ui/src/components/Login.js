@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import firebase from 'firebase'
+import { apiLogin } from '../util/api'
 
 export default class Login extends Component {
   constructor () {
@@ -10,18 +10,24 @@ export default class Login extends Component {
 
   login (event) {
     event.preventDefault()
-    const {setLoading, handleAuthError} = this.props
+    const { setLoading, setUser, handleAuthError } = this.props
     setLoading(true)
-    firebase.auth().signInWithEmailAndPassword(this.email.value, this.password.value)
-      .catch((error) => { handleAuthError(error) })
+    apiLogin(this.email.value, this.password.value)
+      .then((user) => {
+        console.log('user', user)
+        setUser(user)
+      })
+      .catch((error) => {
+        handleAuthError(error)
+      })
   }
 
   signup (event) {
     event.preventDefault()
-    const {setLoading, handleAuthError} = this.props
-    setLoading(true)
-    firebase.auth().createUserWithEmailAndPassword(this.email.value, this.password.value)
-      .catch((error) => { handleAuthError(error) })
+    // const {setLoading, handleAuthError} = this.props
+    // setLoading(true)
+    // firebase.auth().createUserWithEmailAndPassword(this.email.value, this.password.value)
+    //   .catch((error) => { handleAuthError(error) })
   }
 
   render () {

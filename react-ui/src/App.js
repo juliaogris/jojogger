@@ -1,97 +1,82 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Route, Switch, Redirect, NavLink} from 'react-router-dom'
-import firebase from 'firebase'
-// import fetch from 'unfetch'
+import { BrowserRouter as Router, Route, Switch, Redirect, NavLink } from 'react-router-dom'
 
 import Login from './components/Login'
-import Runs from './components/Runs'
+import Jogs from './components/Jogs'
 import Weekly from './components/Weekly'
 
-import sampleRuns from './sample_runs'
+import { apiGetJogs } from './util/api'
 
 export default class App extends Component {
   constructor () {
     super()
     this.state = {
-      authed: false,
       authError: null,
-      loading: true,
-      runs: null
+      loading: false,
+      jogs: [],
+      user: null
     }
     this.setLoading = this.setLoading.bind(this)
     this.handleAuthError = this.handleAuthError.bind(this)
-    this.getRuns = this.getRuns.bind(this)
-  }
-
-  getRuns (uid) {
-    return sampleRuns
-  }
-
-  componentDidMount () {
-    this.removeListener = firebase.auth().onAuthStateChanged(
-      async (user) => {
-        this.setState({ loading: true })
-        if (user) {
-          let runs = await this.getRuns(user.uid)
-          console.log('runs:', runs)
-          this.setState({ runs, authed: true, loading: false })
-        } else {
-          this.setState({ authed: false, loading: false })
-        }
-      })
-  }
-
-  componentWillUnmount () {
-    this.removeListener()
+    this.setUser = this.setUser.bind(this)
+    this.signOut = this.signOut.bind(this)
   }
 
   setLoading (loading) {
-    this.setState({loading, authError: null})
+    this.setState({ loading, authError: null })
   }
 
   handleAuthError (authError) {
-    this.setState({authError, loading: false})
+    this.setState({ authError, loading: false })
+  }
+
+  signOut () {
+    this.setState({ user: null, jogs: {} })
+  }
+
+  async setUser (user) {
+    this.setState({ user, loading: false })
+    let jogs = await apiGetJogs(user)
+    this.setState({ jogs })
   }
 
   render () {
-    const {authed, loading, authError, runs} = this.state
+    const { user, loading, authError, jogs } = this.state
     if (loading) {
       return <h1>Loading</h1>
     }
 
-    if (!authed) {
+    if (!user) {
       return (
         <div>
           {authError && <div className='error'>{authError.message}</div>}
-          <Login setLoading={this.setLoading} handleAuthError={this.handleAuthError} />
+          <Login
+            setLoading={this.setLoading}
+            handleAuthError={this.handleAuthError}
+            setUser={this.setUser}
+          />
         </div>
       )
     }
 
-    console.log(`authed: ${authed}, loading: ${loading}, runs:${runs}`)
+    console.log(`App.render user: ${JSON.stringify(user)}, loading: ${loading}, #jogs:${jogs.length}`)
     return (
       <Router>
         <div className='app'>
           <nav>
-            <NavLink to='/runs' activeClassName='active'>Runs</NavLink>
+            <NavLink to='/jogs' activeClassName='active'>Jogs</NavLink>
             <NavLink to='/weekly' activeClassName='active'>Weekly</NavLink>
-            <button onClick={() => { firebase.auth().signOut() }}>Log out</button>
+            <button onClick={() => { this.signOut() }}>Log out</button>
           </nav>
           <Switch>
-            <Redirect exact from='/' to='/runs' />
-            <Route path='/runs' render={(props) => <Runs runs={runs} {...props} />} />
-            <Route path='/weekly' render={(props) => <Weekly runs={runs} {...props} />} />
+            <Redirect exact from='/' to='/jogs' />
+            <Route path='/jogs' render={(props) => <Jogs jogs={jogs} {...props} />} />
+            <Route path='/weekly' render={(props) => <Weekly jogs={jogs} {...props} />} />
+            <Route path='/weekly' render={(props) => <Weekly jogs={jogs} {...props} />} />
+            <Redirect to='/jogs' />
           </Switch>
         </div>
       </Router>
     )
   }
 }
-
-// Replace with your firebase config from
-// https://console.firebase.google.com/project/<your_poject_id>
-firebase.initializeApp({
-  apiKey: 'AIzaSyBAb4AQG4jxyR_YmUz3pm0wqC9SVnpa2lw',
-  authDomain: 'routing-bddc6.firebaseapp.com',
-  databaseURL: 'https://routing-bddc6.firebaseio.com'
-})
