@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Jog = mongoose.model('Jog')
 
 const makeErr = (code, message) => ({ error: { code, message } })
-const compareJogs = (a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0)
+const compareJogs = (a, b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)
 
 const extractJog = (jog) => {
   const { date, duration, distance, _id } = jog
