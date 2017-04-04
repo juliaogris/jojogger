@@ -6,8 +6,8 @@ const makeErr = (code, message) => ({ error: { code, message } })
 const compareJogs = (a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0)
 
 const extractJog = (jog) => {
-  const { date, duration, distance, _id, uid } = jog
-  return { date, duration, distance, uid, id: _id }
+  const { date, duration, distance, _id } = jog
+  return { date, duration, distance, id: _id }
 }
 
 // GET, POST /api/users/:uid/jogs
