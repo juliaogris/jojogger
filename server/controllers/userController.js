@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
+const Jog = mongoose.model('Jog')
 const getErrorMessage = require('../util/funcs').getErrorMessage
 
 const makeErr = (code, message) => ({ error: { code, message } })
@@ -109,7 +110,12 @@ exports.deleteUser = (req, res) => {
       if (err) {
         return res.status(500).send(err)
       }
-      res.json({ message: `Removed user '${u.email}'.` })
+      Jog.remove({ uid }, (err, jogs) => {
+        if (err) {
+          return res.status(500).send(err)
+        }
+        res.json({ message: `Removed user '${u.email}'.` })
+      })
     })
   })
 }
