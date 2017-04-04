@@ -7,10 +7,13 @@ const notFound = require('../util/funcs').notFound
 
 const { canAccessUsers, canAccessUser, canAccessJogs } = accessController
 const { getUsers, postUser } = userController
-const { getUser, putUser, deleteUser } = userController
+const { login, getUser, putUser, deleteUser } = userController
 const { getJogs, postJog, deleteJogs } = jogController
 const { getJog, putJog, deleteJog } = jogController
 const apiRouter = express.Router()
+
+apiRouter.route('/login')
+  .get(isAuthed, login)
 
 apiRouter.route('/users')
   .post(postUser)

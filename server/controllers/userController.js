@@ -5,6 +5,11 @@ const getErrorMessage = require('../util/funcs').getErrorMessage
 
 const makeErr = (code, message) => ({ error: { code, message } })
 
+exports.login = (req, res) => {
+  const {email, _id} = req.user
+  res.json({email, id: _id})
+}
+
 // GET, POST /api/users
 exports.postUser = (req, res) => {
   const user = new User({
