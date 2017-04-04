@@ -59,7 +59,7 @@
 					},
 					"response": [
 						{
-							"id": "e4f83bfe-30b1-485d-acf7-0edc5f73cea0",
+							"id": "0efcfee6-7872-45c1-bb13-8bdb7e17f24e",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -177,7 +177,7 @@
 					},
 					"response": [
 						{
-							"id": "2eadcabd-e13b-496e-9bc4-179bf317beed",
+							"id": "81aaa3d0-8c5a-4386-968e-cbe63999fa1b",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -2037,7 +2037,6 @@
 								"exec": [
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"tests[\"Body contains 'Removed user' string\"] = responseBody.has(\"Removed user\");",
-									"postman.setEnvironmentVariable(\"test1\", JSON.parse(responseBody).uid) ",
 									""
 								]
 							}
