@@ -4,6 +4,11 @@ const Jog = mongoose.model('Jog')
 
 const makeErr = (code, message) => ({ error: { code, message } })
 
+function extractJog (jog) {
+  const { date, duration, distance, _id } = jog
+  return { date, duration, distance, id: _id }
+}
+
 // GET, POST /api/users/:uid/jogs
 exports.postJog = (req, res) => {
   const { date, duration, distance } = req.body
@@ -18,8 +23,7 @@ exports.postJog = (req, res) => {
       return res.status(500).send(err)
     }
     const message = `Created jog '${jog._id}'.`
-    const id = jog._id
-    res.json({ message, id })
+    res.json({ message, data: extractJog(jog) })
   })
 }
 
@@ -29,7 +33,7 @@ exports.getJogs = (req, res) => {
     if (err) {
       return res.status(500).send(err)
     }
-    res.json(jogs)
+    res.json(jogs.map(extractJog))
   })
 }
 
@@ -66,7 +70,7 @@ exports.getJog = (req, res) => {
     if (err || !jogs || jogs.length === 0) {
       return handleFindJogError(req, res, err, jogs)
     }
-    res.json(jogs[0])
+    res.json(extractJog(jogs[0]))
   })
 }
 
