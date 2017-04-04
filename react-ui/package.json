@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^3.7.4",
     "moment": "^2.18.1",
     "react": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",
     "react-dates": "^8.2.1",
     "react-dom": "^15.4.2",
-    "react-router-dom": "^4.0.0",
-    "unfetch": "^2.1.2"
+    "react-router-dom": "^4.0.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5",
@@ -23,7 +21,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "stylelint": {
-    "extends": "stylelint-config-standard"
-  }
+  "proxy": "http://localhost:5000/"
 }
