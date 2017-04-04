@@ -1,9 +1,5 @@
-const accessError = {
-  'error': {
-    'message': 'User does not have access rights.',
-    'code': 200
-  }
-}
+const message = 'User does not have access rights.'
+const accessError = { error: { message, code: 200 } }
 
 exports.canAccessUsers = (req, res, next) => {
   const role = req.user.role
