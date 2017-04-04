@@ -59,7 +59,7 @@
 					},
 					"response": [
 						{
-							"id": "bba53f89-cf09-4a61-b103-cec4ba3190fd",
+							"id": "e4f83bfe-30b1-485d-acf7-0edc5f73cea0",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -177,7 +177,7 @@
 					},
 					"response": [
 						{
-							"id": "601eacfb-9008-4b2f-8dbf-03c50efe01cb",
+							"id": "2eadcabd-e13b-496e-9bc4-179bf317beed",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -2129,7 +2129,7 @@
 								"exec": [
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"tests[\"Body matches 'Create jog'\"] = responseBody.has(\"Created jog \");",
-									"jogId = JSON.parse(responseBody).id || 'unknown';",
+									"jogId = JSON.parse(responseBody).data.id || 'unknown';",
 									"postman.setEnvironmentVariable(\"jog1\", jogId) ",
 									""
 								]
@@ -2319,7 +2319,7 @@
 								"exec": [
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"tests[\"Body matches 'Create jog'\"] = responseBody.has(\"Created jog \");",
-									"jogId = JSON.parse(responseBody).id || 'unknown';",
+									"jogId = JSON.parse(responseBody).data.id || 'unknown';",
 									"postman.setEnvironmentVariable(\"jog2\", jogId) ",
 									""
 								]
@@ -3008,7 +3008,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Basic cmVndWxhclhYWFhYQHguY286MTIzNDU=",
+								"value": "Basic cmVndWxhcnguY286MTIzNDU=",
 								"description": ""
 							}
 						],
