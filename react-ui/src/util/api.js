@@ -5,7 +5,7 @@ function handleErrors (response) {
     throw Error('Invalid username or password.')
   }
   if (!response.ok) {
-    console.err('Internal Error', response.status, response.statusText)
+    console.error('Internal Error', response.status, response.statusText)
     throw Error('We are sorry, something went wrong.')
   }
   return response
