@@ -59,7 +59,7 @@
 					},
 					"response": [
 						{
-							"id": "440c7971-2e99-4fa1-ba56-c8c3aaff632d",
+							"id": "61cb6f95-0a61-4497-a9bb-b70c63ccf97c",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -177,7 +177,7 @@
 					},
 					"response": [
 						{
-							"id": "10cfe12a-96f4-4e86-b6b9-2daff60ec16a",
+							"id": "32b7cec3-83fc-4354-9863-c7f81643f3b7",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -277,73 +277,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "new user: test1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"tests[\"Body contains 'Created user' string\"] = responseBody.has(\"Created user\");",
-									"postman.setEnvironmentVariable(\"test1\", JSON.parse(responseBody).uid) ",
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "{{host}}/api/users",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"email\": \"test1@x.co\", \"password\": \"123456\"}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "new user: test2",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"tests[\"Body contains 'Created user' string\"] = responseBody.has(\"Created user\");",
-									"postman.setEnvironmentVariable(\"test2\", JSON.parse(responseBody).uid) "
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "{{host}}/api/users",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"email\": \"test2@x.co\", \"password\": \"123456\"}"
 						},
 						"description": ""
 					},
@@ -639,6 +572,73 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\"email\": \"manager@x.co\", \"password\": \"123456\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "new user: test1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Body contains 'Created user' string\"] = responseBody.has(\"Created user\");",
+									"postman.setEnvironmentVariable(\"test1\", JSON.parse(responseBody).uid) ",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{host}}/api/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"test1@x.co\", \"password\": \"123456\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "new user: test2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Body contains 'Created user' string\"] = responseBody.has(\"Created user\");",
+									"postman.setEnvironmentVariable(\"test2\", JSON.parse(responseBody).uid) "
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{host}}/api/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"test2@x.co\", \"password\": \"123456\"}"
 						},
 						"description": ""
 					},
