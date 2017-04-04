@@ -1,52 +1,67 @@
-import React, { Component, PropTypes } from 'react'
-import Row from '../components/Row'
-
-import { groupBy } from '../util/funcs'
+import React, { PropTypes } from 'react'
 import moment from 'moment'
 
-function addJogs (jogs, date) {
-  const result = { date, distance: 0, duration: moment.duration(0) }
-  for (let jog of jogs) {
-    result.distance += jog.distance
-    result.duration.add(moment.duration(jog.duration))
-  }
-  result.duration = moment.utc(result.duration.asMilliseconds()).format('hh:mm:ss')
-  return result
-}
+import Row from './Row'
+import Calendar from './Calendar'
 
-function addJogsByWeek (jogs) {
-  const weekly = groupBy(jogs, (jog) => moment(jog.date).startOf('isoWeek').format('YYYY-MM-DD'))
-  for (let week in weekly) {
-    weekly[week] = addJogs(weekly[week], week)
-  }
-  return weekly
-}
+const Weekly = ({ startDate, endDate, jogs, onDatesChange }) => {
+  const weekly = summarizeWeeklyJogs(jogs)
 
-export default class Weekly extends Component {
-  render () {
-    const { jogs } = this.props
-    const weekly = addJogsByWeek(jogs)
-    const weeklyKeys = Object.keys(weekly).sort().reverse()
-    return (
-      <div>
-        <table>
-          <thead>
-            <tr className='weekly-head'>
-              <td>Week</td>
-              <td>Distance</td>
-              <td>Duration</td>
-              <td>Speed</td>
-            </tr>
-          </thead>
-          <tbody>
-            { weeklyKeys.map((weeklyKey) => <Row jog={weekly[weeklyKey]} key={weeklyKey} />) }
-          </tbody>
-        </table>
-      </div>
-    )
-  }
+  const weeklyKeys = Object.keys(weekly).sort().reverse()
+  return (
+    <div className='page'>
+      <Calendar
+        startDate={startDate}
+        endDate={endDate}
+        onDatesChange={onDatesChange}
+      />
+      <table>
+        <thead>
+          <tr>
+            <td>Week</td>
+            <td>Distance</td>
+            <td>Duration</td>
+            <td>Speed</td>
+          </tr>
+        </thead>
+        <tbody>
+          { weeklyKeys.map((weeklyKey) => <Row jog={weekly[weeklyKey]} key={weeklyKey} />) }
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 Weekly.propTypes = {
   jogs: PropTypes.array.isRequired
+}
+
+export default Weekly
+
+function summarizeWeeklyJogs (jogs) {
+  if (jogs.length === 0) {
+    return {}
+  }
+  const result = {}
+  const lastWeek = moment(jogs[0].date).startOf('isoWeek')
+  const week = moment(jogs[jogs.length - 1].date).startOf('isoWeek')
+  while (week.isSameOrBefore(lastWeek, 'isoWeek')) {
+    const date = week.format('YYYY-MM-DD')
+    result[date] = { date, distance: 0, duration: moment.duration(0) }
+    week.add(1, 'week')
+  }
+
+  for (let jog of jogs) {
+    const date = moment(jog.date).startOf('isoWeek').format('YYYY-MM-DD')
+    result[date].distance += jog.distance
+    result[date].duration.add(moment.duration(jog.duration))
+  }
+
+  for (let weekly of Object.values(result)) {
+    let duration = String(Math.floor(weekly.duration.asHours()))
+    duration += moment.utc(weekly.duration.asMilliseconds()).format(':mm:ss')
+    weekly.duration = duration
+  }
+
+  return result
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect, NavLink } from 'react-router-dom'
+import moment from 'moment'
 
 import Login from './components/Login'
 import Jogs from './components/Jogs'
@@ -13,13 +14,19 @@ export default class App extends Component {
     this.state = {
       authError: null,
       loading: false,
+      user: null,
       jogs: [],
-      user: null
+      startDate: null,
+      endDate: null,
+      jogsInRange: []
     }
     this.setLoading = this.setLoading.bind(this)
     this.handleAuthError = this.handleAuthError.bind(this)
     this.setUser = this.setUser.bind(this)
     this.signOut = this.signOut.bind(this)
+    this.onDatesChange = this.onDatesChange.bind(this)
+    this.renderJogs = this.renderJogs.bind(this)
+    this.renderWeekly = this.renderWeekly.bind(this)
   }
 
   setLoading (loading) {
@@ -37,7 +44,19 @@ export default class App extends Component {
   async setUser (user) {
     this.setState({ user, loading: false })
     let jogs = await apiGetJogs(user)
-    this.setState({ jogs })
+    let startDate = null
+    let endDate = null
+    if (jogs.length > 0) {
+      endDate = moment(jogs[0].date)
+      startDate = moment(jogs[jogs.length - 1].date)
+    }
+    this.setState({ startDate, endDate, jogs, jogsInRange: jogs })
+  }
+
+  onDatesChange ({ startDate, endDate }) {
+    const between = j => moment(j.date).isBetween(startDate, endDate, 'day', '[]')
+    const jogsInRange = this.state.jogs.filter(between)
+    this.setState({ startDate, endDate, jogsInRange })
   }
 
   // bypass auth during dev
@@ -45,8 +64,34 @@ export default class App extends Component {
     this.setUser({ email: 'j@x.co', password: '123456', id: '58e32eaacb5a3c8c34640d44' })
   }
 
+  renderJogs (props) {
+    const { startDate, endDate, jogsInRange } = this.state
+    return (
+      <Jogs
+        startDate={startDate}
+        endDate={endDate}
+        jogs={jogsInRange}
+        onDatesChange={this.onDatesChange}
+        {...props}
+      />
+    )
+  }
+
+  renderWeekly (props) {
+    const { startDate, endDate, jogsInRange } = this.state
+    return (
+      <Weekly
+        startDate={startDate}
+        endDate={endDate}
+        jogs={jogsInRange}
+        onDatesChange={this.onDatesChange}
+        {...props}
+      />
+    )
+  }
+
   render () {
-    const { user, loading, authError, jogs } = this.state
+    const { user, loading, authError } = this.state
     if (loading) {
       return <h1>Loading</h1>
     }
@@ -64,7 +109,6 @@ export default class App extends Component {
       )
     }
 
-    console.log(`App.render user: ${JSON.stringify(user)}, loading: ${loading}, #jogs:${jogs.length}`)
     return (
       <Router>
         <div className='app'>
@@ -75,9 +119,8 @@ export default class App extends Component {
           </nav>
           <Switch>
             <Redirect exact from='/' to='/jogs' />
-            <Route path='/jogs' render={(props) => <Jogs jogs={jogs} {...props} />} />
-            <Route path='/weekly' render={(props) => <Weekly jogs={jogs} {...props} />} />
-            <Route path='/weekly' render={(props) => <Weekly jogs={jogs} {...props} />} />
+            <Route path='/jogs' render={this.renderJogs} />
+            <Route path='/weekly' render={this.renderWeekly} />
             <Redirect to='/jogs' />
           </Switch>
         </div>

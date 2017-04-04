@@ -1,46 +1,21 @@
 import React, { Component, PropTypes } from 'react'
-import { DateRangePicker } from 'react-dates'
-import Row from '../components/Row'
+
 import Plus from '../svgs/Plus'
-import '../css/datepicker.css'
-import moment from 'moment'
+import Row from './Row'
+import Calendar from './Calendar'
 
 export default class Jogs extends Component {
   constructor () {
     super()
-    let focusedInput = null
-    this.state = {
-      focusedInput,
-      jogs: [],
-      startDate: null,
-      endDate: null
-    }
-    this.onDatesChange = this.onDatesChange.bind(this)
+    this.onEdit = this.onEdit.bind(this)
   }
 
   onEdit (jogId) {
     console.log('onEdit', jogId)
   }
 
-  onDatesChange ({ startDate, endDate }) {
-    const between = j => moment(j.date).isBetween(startDate, endDate, 'day', '[]')
-    const jogs = this.props.jogs.filter(between)
-    this.setState({ startDate, endDate, jogs })
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const { jogs } = nextProps
-    let startDate = null
-    let endDate = null
-    if (jogs.length > 0) {
-      startDate = moment(jogs[0].date)
-      endDate = moment(jogs[jogs.length - 1].date)
-    }
-    this.setState({ startDate, endDate, jogs })
-  }
-
   render () {
-    const { startDate, endDate, jogs } = this.state
+    const { startDate, endDate, jogs, onDatesChange } = this.props
     const renderRow = (jog) => (
       <Row
         jog={jog}
@@ -49,21 +24,11 @@ export default class Jogs extends Component {
         key={jog.id} />
     )
     return (
-      <div className='jogs'>
-        <DateRangePicker
+      <div className='page'>
+        <Calendar
           startDate={startDate}
           endDate={endDate}
-          onDatesChange={this.onDatesChange}
-          focusedInput={this.state.focusedInput}
-          onFocusChange={focusedInput => this.setState({ focusedInput })}
-          numberOfMonths={1}
-          customArrowIcon={<span className='drp'>→</span>}
-          customCloseIcon={<span className='drp'>⨉</span>}
-          showDefaultInputIcon
-          showClearDates
-          keepOpenOnDateSelect={false}
-          isOutsideRange={day => !(day.isSameOrBefore(moment(), 'day'))}
-          displayFormat='YYYY-MM-DD'
+          onDatesChange={onDatesChange}
         />
         <table>
           <thead>
