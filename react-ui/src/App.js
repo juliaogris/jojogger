@@ -40,6 +40,11 @@ export default class App extends Component {
     this.setState({ jogs })
   }
 
+  // bypass auth during dev
+  componentWillMount () {
+    this.setUser({ email: 'j@x.co', password: '123456', id: '58e32eaacb5a3c8c34640d44' })
+  }
+
   render () {
     const { user, loading, authError, jogs } = this.state
     if (loading) {
