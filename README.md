@@ -33,15 +33,22 @@ Requirements
 * Keep design as tidy as possible.
 
 
-API by sample
--------------
 RESTful API
+------------
+
+### Login
+Login is not a truly RESTful endpoint nonetheless provided as part of the API for convenience
+
+|Method  |Sample URL       | Roles with access                             |
+|--------|-----------------|-----------------------------------------------|
+|GET     | api/login       | admin, manager, user, unauthorized            |
+
 
 ### Users
 |Method  |Sample URL       | Roles with access                             |
 |--------|-----------------|-----------------------------------------------|
 |GET     | api/users       | admin, manager                                |
-|POST    | api/users       | admin, manager, user                          |
+|POST    | api/users       | admin, manager, user, unauthorized            |
 |GET     | api/users/:uid  | admin, manager, user.uid                      |
 |PUT     | api/users/:uid  | admin, manager (if uid not admin), user.uid   |
 |DELETE  | api/users/:uid  | admin, manager (if uid not admin), user.uid   |
@@ -80,11 +87,13 @@ __GET api/users/:uid :__ get admin user with admin account
 TODO
 ----
 * Nicer login UI like Auth0 screenshot for login
+* Nicer error message
+* JEST testing
+
 * Check on IE and ios
+
+* Clean install - make sure all node packaging is good.
+
 * Docs on MONGODB_URI setup 
 * Heroku docs
-* Clean instal - make sure all node packaging is good.
-* Wrap unauthorized in JSON error
 * write deploy and dev instructions
-* IE testing
-* JEST testing
