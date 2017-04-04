@@ -21,14 +21,8 @@ app.use(morgan('dev'))
 app.use(pretty({ query: 'pretty' }))
 app.use(passport.initialize())
 
+dbInit(() => { app.listen(process.env.PORT) })
 app.use(emojiFavicon('runner'))
 app.use('/api', apiRouter)
-app.use((err, req, res, next) => {
-  console.log(err)
-  console.log(err.stack)
-  res.status(err.status || 500).send({'Error': err.stack})
-})
-
 app.get('*', (req, res) => res.sendFile(REACT_INDEX_HTML))
 
-dbInit(() => { app.listen(process.env.PORT) })

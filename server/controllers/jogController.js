@@ -1,5 +1,6 @@
-const Jog = require('../models/Jog')
 const getErrorMessage = require('../util/funcs').getErrorMessage
+const mongoose = require('mongoose')
+const Jog = mongoose.model('Jog')
 
 const makeErr = (code, message) => ({ error: { code, message } })
 
