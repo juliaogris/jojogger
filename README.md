@@ -89,6 +89,7 @@ TODO
 * Nicer login UI like Auth0 screenshot for login
 * Nicer error message
 * JEST testing
+* hash email & password for local storage.
 
 * Check on IE and ios
 
