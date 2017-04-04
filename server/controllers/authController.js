@@ -3,24 +3,24 @@ const BasicStrategy = require('passport-http').BasicStrategy
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 
-passport.use(new BasicStrategy((email, password, callback) => {
+passport.use(new BasicStrategy((email, password, done) => {
   User.findOne({ email }, function (err, user) {
     if (err) {
-      return callback(err)
+      return done(err, false)
     }
     if (!user) {
-      return callback(null, false)
+      return done(null, false)
     }
     user.verifyPassword(password, function (err, isMatch) {
       if (err) {
-        return callback(err)
+        return done(err)
       }
 
       if (!isMatch) {
-        return callback(null, false)
+        return done(null, false)
       }
 
-      return callback(null, user)
+      return done(null, user)
     })
   })
 }
