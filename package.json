@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "node server",
-    "dev": "nf run nodemon server.js",
+    "nodemon": "nodemon --watch server server",
+    "dev": "nf run npm run nodemon",
     "e2e": "node_modules/newman/bin/newman.js run -e e2e/dev.env.json e2e/api.tests.json",
     "e2e-prod": "node_modules/newman/bin/newman.js run -e e2e/prod.env.json e2e/api.tests.json",
     "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build"
