@@ -5,8 +5,8 @@ const Jog = mongoose.model('Jog')
 const makeErr = (code, message) => ({ error: { code, message } })
 
 function extractJog (jog) {
-  const { date, duration, distance, _id } = jog
-  return { date, duration, distance, id: _id }
+  const { date, duration, distance, _id, uid } = jog
+  return { date, duration, distance, uid, id: _id }
 }
 
 // GET, POST /api/users/:uid/jogs
