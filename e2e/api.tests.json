@@ -20,7 +20,8 @@
 								"type": "text/javascript",
 								"exec": [
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"tests[\"Body contains admin users\"] = responseBody.has('{\"_id\":\"58e0d0af542e0921b3909f73\",\"email\":\"admin@x.co\",\"password\":\"$2a$10$ylfZXLtgJ7Q1nXqe6ugbpeK/0/O0ZYzTMaxqJFf20XkfgAX5lxlfq\",\"__v\":0,\"role\":\"admin\"}');",
+									"tests[\"Body contains admin user email\"] = responseBody.has('\"email\":\"admin@x.co\"')",
+									"tests[\"Body contains admin user role\"] = responseBody.has('\"role\":\"admin\"')",
 									"tests[\"First user's email is admin@x.co\"] = JSON.parse(responseBody)[0].email === \"admin@x.co\";",
 									""
 								]
@@ -59,7 +60,7 @@
 					},
 					"response": [
 						{
-							"id": "0efcfee6-7872-45c1-bb13-8bdb7e17f24e",
+							"id": "968db3ae-9373-4120-ae36-48dfde79be0d",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -177,7 +178,7 @@
 					},
 					"response": [
 						{
-							"id": "81aaa3d0-8c5a-4386-968e-cbe63999fa1b",
+							"id": "f1e07609-3c1a-413f-867c-56458bcb130e",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",

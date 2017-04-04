@@ -4,10 +4,15 @@ const Jog = mongoose.model('Jog')
 const getErrorMessage = require('../util/funcs').getErrorMessage
 
 const makeErr = (code, message) => ({ error: { code, message } })
+const compareUsers = (a, b) => (a.email > b.email) ? 1 : ((b.email > a.email) ? -1 : 0)
+const extractUser = (user) => {
+  const { email, _id, role } = user
+  return { email, role, id: _id }
+}
 
 exports.login = (req, res) => {
-  const {email, _id} = req.user
-  res.json({email, id: _id})
+  const { email, _id } = req.user
+  res.json({ email, id: _id })
 }
 
 // GET, POST /api/users
@@ -39,7 +44,9 @@ exports.getUsers = (req, res) => {
     if (err) {
       return res.status(500).send(err)
     }
-    res.json(users)
+    const result = users.map(extractUser)
+    result.sort(compareUsers)
+    res.json(result)
   })
 }
 
@@ -65,7 +72,7 @@ exports.getUser = (req, res) => {
     if (err || !user) {
       return handleFindUserError(req, res, err, user)
     }
-    res.json(user)
+    res.json(extractUser(user))
   })
 }
 

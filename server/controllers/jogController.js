@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 const Jog = mongoose.model('Jog')
 
 const makeErr = (code, message) => ({ error: { code, message } })
+const compareJogs = (a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0)
 
-function extractJog (jog) {
+const extractJog = (jog) => {
   const { date, duration, distance, _id, uid } = jog
   return { date, duration, distance, uid, id: _id }
 }
@@ -33,7 +34,9 @@ exports.getJogs = (req, res) => {
     if (err) {
       return res.status(500).send(err)
     }
-    res.json(jogs.map(extractJog))
+    const result = jogs.map(extractJog)
+    result.sort(compareJogs)
+    res.json(result)
   })
 }
 
