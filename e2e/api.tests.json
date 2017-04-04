@@ -59,7 +59,7 @@
 					},
 					"response": [
 						{
-							"id": "61cb6f95-0a61-4497-a9bb-b70c63ccf97c",
+							"id": "bba53f89-cf09-4a61-b103-cec4ba3190fd",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -177,7 +177,7 @@
 					},
 					"response": [
 						{
-							"id": "32b7cec3-83fc-4354-9863-c7f81643f3b7",
+							"id": "601eacfb-9008-4b2f-8dbf-03c50efe01cb",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -2773,6 +2773,246 @@
 							"mode": "raw",
 							"raw": "{\n\t\"date\": \"2017-01-13\",\n\t\"duration\": \"00:33:27\",\n\t\"distance\": \"3.3\"\n}"
 						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "05-Login",
+			"description": "",
+			"item": [
+				{
+					"name": "{{host}}/api/login [regular]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body matches email\"] = responseBody.has('\"email\":\"regular@x.co\"');"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "regular@x.co",
+								"password": "123456",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{host}}/api/login",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1Ng==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/api/login [admin]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body matches email\"] = responseBody.has('\"email\":\"admin@x.co\"');"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin@x.co",
+								"password": "123456",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{host}}/api/login",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/api/login [manager]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body matches email\"] = responseBody.has('\"email\":\"manager@x.co\"');"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "manager@x.co",
+								"password": "123456",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{host}}/api/login",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic bWFuYWdlckB4LmNvOjEyMzQ1Ng==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/api/login [regular] - wrong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;",
+									"",
+									"tests[\"Body matches Unauthorized\"] = responseBody.has('Unauthorized');"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "regular@x.co",
+								"password": "12345",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{host}}/api/login",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic cmVndWxhckB4LmNvOjEyMzQ1",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/api/login [regular] - wrong email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;",
+									"",
+									"tests[\"Body matches Unauthorized\"] = responseBody.has('Unauthorized');"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "regularXXXXX@x.co",
+								"password": "12345",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{host}}/api/login",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic cmVndWxhclhYWFhYQHguY286MTIzNDU=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/api/login [regular] - bad email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;",
+									"",
+									"tests[\"Body matches Unauthorized\"] = responseBody.has('Unauthorized');"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "regularx.co",
+								"password": "12345",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{host}}/api/login",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic cmVndWxhclhYWFhYQHguY286MTIzNDU=",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
