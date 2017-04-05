@@ -30,7 +30,7 @@ export default class App extends Component {
     this.setUser = this.setUser.bind(this)
     this.fetchJogs = this.fetchJogs.bind(this)
     this.signOut = this.signOut.bind(this)
-    this.onDatesChange = this.onDatesChange.bind(this)
+    this.handleDatesChange = this.handleDatesChange.bind(this)
     this.renderJogs = this.renderJogs.bind(this)
     this.renderWeekly = this.renderWeekly.bind(this)
   }
@@ -73,7 +73,7 @@ export default class App extends Component {
     this.fetchJogs(user)
   }
 
-  onDatesChange ({ startDate, endDate }) {
+  handleDatesChange ({ startDate, endDate }) {
     const between = j => moment(j.date).isBetween(startDate, endDate, 'day', '[]')
     const jogsInRange = this.state.jogs.filter(between)
     this.setState({ startDate, endDate, jogsInRange })
@@ -90,7 +90,7 @@ export default class App extends Component {
         startDate={startDate}
         endDate={endDate}
         jogs={jogsInRange}
-        onDatesChange={this.onDatesChange}
+        onDatesChange={this.handleDatesChange}
         {...props}
       />
     )
@@ -103,7 +103,7 @@ export default class App extends Component {
         startDate={startDate}
         endDate={endDate}
         jogs={jogsInRange}
-        onDatesChange={this.onDatesChange}
+        onDatesChange={this.handleDatesChange}
         {...props}
       />
     )

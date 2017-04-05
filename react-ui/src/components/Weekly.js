@@ -65,3 +65,8 @@ function summarizeWeeklyJogs (jogs) {
 
   return result
 }
+
+Weekly.propTypes = {
+  onDatesChange: PropTypes.func.isRequired,
+  jogs: PropTypes.array.isRequired
+}

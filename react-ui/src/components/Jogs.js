@@ -1,58 +1,40 @@
 import React, { Component, PropTypes } from 'react'
-
-import Plus from '../svgs/Plus'
-import Row from './Row'
-import Calendar from './Calendar'
+import JogsList from './JogsList'
 
 export default class Jogs extends Component {
   constructor () {
     super()
-    this.onEdit = this.onEdit.bind(this)
+    this.state = {
+      view: 'list' // ['list', 'add', 'edit']
+    }
+    this.hadnleEdit = this.hadnleEdit.bind(this)
+    this.handleAddClick = this.handleAddClick.bind(this)
   }
 
-  onEdit (jogId) {
-    console.log('onEdit', jogId)
+  hadnleEdit (jogId) {
+    console.log('Jogs.hadnleEdit', jogId)
+    this.setState({ view: 'edit' })
+  }
+
+  handleAddClick (event) {
+    console.log('Jogs.handleAddClick')
+    event.preventDefault()
+    this.setState({ view: 'add' })
   }
 
   render () {
-    const { startDate, endDate, jogs, onDatesChange } = this.props
-    const renderRow = (jog) => (
-      <Row
-        jog={jog}
-        onEdit={this.onEdit}
-        id={jog.id}
-        key={jog.id} />
-    )
-    return (
-      <div className='page'>
-        <Calendar
-          startDate={startDate}
-          endDate={endDate}
-          onDatesChange={onDatesChange}
-        />
-        <table>
-          <thead>
-            <tr>
-              <td>Date</td>
-              <td>Distance</td>
-              <td>Duration</td>
-              <td>Speed</td>
-              <td>
-                <div className='add-button-wrap'>
-                  <button className='add-button'><Plus className='add-icon' /></button>
-                </div>
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            { jogs.map(renderRow) }
-          </tbody>
-        </table>
-      </div>
-    )
+    const { view } = this.state
+    if (view === 'list') {
+      return <JogsList onEdit={this.hadnleEdit} onAddClick={this.handleAddClick} {...this.props} />
+    }
+    if (view === 'add') {
+      return <div>Add new Jog</div>
+    }
+    return <div>Edit JOG</div>
   }
 }
 
 Jogs.propTypes = {
+  onDatesChange: PropTypes.func.isRequired,
   jogs: PropTypes.array.isRequired
 }
