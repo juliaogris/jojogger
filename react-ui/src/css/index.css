@@ -171,3 +171,9 @@ thead td {
   border: 0px solid blue;
 }
 
+.jog-form {
+  border: 1px solid red;
+}
+.jog-from button + button {
+  margin-left: 1em;
+}

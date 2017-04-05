@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect, NavLink } from 'react
 import moment from 'moment'
 
 import Login from './components/Login'
-import Jogs from './components/Jogs'
+import Jogs from './components/Jogs/'
 import Weekly from './components/Weekly'
 
 import { getJogs } from './util/api'

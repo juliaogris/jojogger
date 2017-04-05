@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
 
-import Row from './Row'
-import Calendar from './Calendar'
+import Row from './Jogs/Row'
+import Calendar from './Jogs/Calendar'
 
 const Weekly = ({ startDate, endDate, jogs, onDatesChange }) => {
   const weekly = summarizeWeeklyJogs(jogs)
