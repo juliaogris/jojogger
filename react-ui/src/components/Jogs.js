@@ -11,6 +11,7 @@ export default class Jogs extends Component {
     }
     this.handleEdit = this.handleEdit.bind(this)
     this.handleAddClick = this.handleAddClick.bind(this)
+    this.handleFormCancel = this.handleFormCancel.bind(this)
   }
 
   handleEdit (id) {
