@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "API",
-		"_postman_id": "fdd2065a-1e08-c99d-abc7-17dc19ee6dd6",
+		"_postman_id": "16c2c897-0337-5e01-76c8-2ab2cb7a3050",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -60,7 +60,7 @@
 					},
 					"response": [
 						{
-							"id": "968db3ae-9373-4120-ae36-48dfde79be0d",
+							"id": "628d17e6-414e-4d9f-9ebd-f6f784da4f83",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -69,20 +69,19 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"enabled": true,
-										"description": "The mime type of this content",
-										"disabled": false
+										"description": ""
 									},
 									{
 										"key": "Authorization",
-										"name": "Authorization",
-										"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY="
+										"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+										"description": ""
 									}
 								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n\t\"email\": \"test2@x.co\",\n\t\"password\": \"1234567\"\n}"
-								}
+								},
+								"description": ""
 							},
 							"status": "OK",
 							"code": 200,
@@ -178,7 +177,7 @@
 					},
 					"response": [
 						{
-							"id": "f1e07609-3c1a-413f-867c-56458bcb130e",
+							"id": "3be479bf-af5a-49af-bb3a-0aff6c99e382",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -187,20 +186,19 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"enabled": true,
-										"description": "The mime type of this content",
-										"disabled": false
+										"description": ""
 									},
 									{
 										"key": "Authorization",
-										"name": "Authorization",
-										"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY="
+										"value": "Basic YWRtaW5AeC5jbzoxMjM0NTY=",
+										"description": ""
 									}
 								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n\t\"email\": \"test2@x.co\",\n\t\"password\": \"1234567\"\n}"
-								}
+								},
+								"description": ""
 							},
 							"status": "OK",
 							"code": 200,
@@ -1394,7 +1392,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1432,7 +1433,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1470,7 +1474,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1509,7 +1516,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1734,7 +1744,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1820,7 +1833,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1858,7 +1874,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -2023,7 +2042,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -2108,7 +2130,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -2817,7 +2842,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -2856,7 +2884,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -2895,7 +2926,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -2934,7 +2968,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -2973,7 +3010,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -3012,7 +3052,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
