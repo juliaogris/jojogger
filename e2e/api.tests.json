@@ -60,7 +60,7 @@
 					},
 					"response": [
 						{
-							"id": "968db3ae-9373-4120-ae36-48dfde79be0d",
+							"id": "2e895899-4c83-4c0d-90de-9a02cedc3692",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -141,7 +141,7 @@
 								"type": "text/javascript",
 								"exec": [
 									"tests[\"Status code is 403 - forbidden\"] = responseCode.code === 403;",
-									"tests[\"Body contains 'no access' string\"] = responseBody.has(\"User does not have access\");"
+									""
 								]
 							}
 						}
@@ -178,7 +178,7 @@
 					},
 					"response": [
 						{
-							"id": "f1e07609-3c1a-413f-867c-56458bcb130e",
+							"id": "6eb1df9f-0369-42fc-a499-a04880193d0f",
 							"name": "allUsers",
 							"originalRequest": {
 								"url": "localhost:5000/api/users/",
@@ -460,7 +460,6 @@
 								"type": "text/javascript",
 								"exec": [
 									"tests[\"Status code is 403\"] = responseCode.code === 403;",
-									"tests[\"Body contains\"] = responseBody.has('not have access rights');",
 									""
 								]
 							}
@@ -736,7 +735,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"email\": \"regular2@x.co\", \"password\": \"1234567\"}"
+							"raw": "{\"email\": \"regular2@x.co\", \"username\": \"regular2@x.co\"  , \"password\": \"1234567\"}"
 						},
 						"description": ""
 					},
@@ -830,7 +829,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"email\": \"regular@x.co\",\n\"password\": \"123456\",\n\"role\": \"regular\"}"
+							"raw": "{\"email\": \"regular@x.co\",\n\"username\": \"regular@x.co\",\n\"password\": \"123456\",\n\"role\": \"regular\"}"
 						},
 						"description": ""
 					},

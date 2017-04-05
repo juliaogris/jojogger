@@ -15,11 +15,16 @@ const UserSchema = new mongoose.Schema({
     },
     required: 'Email address missing.'
   },
+  username: {
+    type: String,
+    unique: true,
+    required: 'Username missing.'
+  },
   password: {
     type: String,
     validate: {
       isAsync: false,
-      validator: (s) => validator.isLength(s, {min: 6}),
+      validator: (s) => validator.isLength(s, { min: 6 }),
       message: 'Password too short. Minimum 6 characters.'
     },
     required: 'Password missing.'

@@ -11,17 +11,14 @@ const extractUser = (user) => {
 }
 
 exports.login = (req, res) => {
-  const { email, _id } = req.user
-  res.json({ email, id: _id })
+  const { email, username, _id } = req.user
+  res.json({ email, username, id: _id })
 }
 
 // GET, POST /api/users
 exports.postUser = (req, res) => {
-  const user = new User({
-    email: req.body.email,
-    password: req.body.password
-  })
-
+  const { email, password, username } = req.body
+  const user = new User({ email, password, username: username || email })
   user.save((err) => {
     if (err) {
       if (err.name === 'ValidationError') {
@@ -84,6 +81,7 @@ exports.putUser = (req, res) => {
     }
     const origUser = user.toJSON()
     user.email = req.body.email || origUser.email
+    user.username = req.body.username || origUser.username
     user.password = req.body.password || origUser.password
     if (req.body.role && req.user.role !== 'admin') {
       const message = 'Only admins can update roles.'
@@ -102,7 +100,7 @@ exports.putUser = (req, res) => {
         return res.status(500).send(err)
       }
       let message = `Updated user '${user.email}'.`
-      message += (origUser.email !== user.email) && ` Before: ${origUser.email}`
+      message += (origUser.email !== user.email) ? ` Before: ${origUser.email}` : ''
       res.json({ message })
     })
   })
