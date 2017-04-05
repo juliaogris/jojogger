@@ -7,7 +7,7 @@ import Login from './components/Login'
 import Jogs from './components/Jogs'
 import Weekly from './components/Weekly'
 
-import { getJobs } from './util/api'
+import { getJogs } from './util/api'
 
 export default class App extends Component {
   constructor () {
@@ -58,7 +58,7 @@ export default class App extends Component {
     if (!user) {
       return
     }
-    let jogs = await getJobs(user)
+    let jogs = await getJogs(user)
     let startDate = null
     let endDate = null
     if (jogs.length > 0) {
