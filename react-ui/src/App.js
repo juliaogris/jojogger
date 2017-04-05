@@ -29,6 +29,7 @@ export default class App extends Component {
     this.handleAuthError = this.handleAuthError.bind(this)
     this.setUser = this.setUser.bind(this)
     this.fetchJogs = this.fetchJogs.bind(this)
+    this.setJogs = this.setJogs.bind(this)
     this.signOut = this.signOut.bind(this)
     this.handleDatesChange = this.handleDatesChange.bind(this)
     this.renderJogs = this.renderJogs.bind(this)
@@ -58,10 +59,16 @@ export default class App extends Component {
     if (!user) {
       return
     }
-    let jogs = await getJogs(user)
+    this.setJogs(await getJogs(user))
+  }
+
+  setJogs (jogs) {
+    const compareJogs = (a, b) =>
+      (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)
     let startDate = null
     let endDate = null
     if (jogs.length > 0) {
+      jogs.sort(compareJogs)
       endDate = moment(jogs[0].date)
       startDate = moment(jogs[jogs.length - 1].date)
     }
@@ -91,6 +98,7 @@ export default class App extends Component {
         endDate={endDate}
         jogs={jogsInRange}
         onDatesChange={this.handleDatesChange}
+        setJogs={this.setJogs}
         {...props}
       />
     )
