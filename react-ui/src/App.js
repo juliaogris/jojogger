@@ -1,3 +1,4 @@
+/* global atob localStorage */
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect, NavLink } from 'react-router-dom'
 import moment from 'moment'
@@ -6,15 +7,19 @@ import Login from './components/Login'
 import Jogs from './components/Jogs'
 import Weekly from './components/Weekly'
 
-import { apiGetJogs } from './util/api'
+import { getJobs } from './util/api'
 
 export default class App extends Component {
   constructor () {
     super()
+    let user = localStorage.getItem('t')
+    if (user) {
+      user = JSON.parse(atob(user))
+    }
     this.state = {
       authError: null,
       loading: false,
-      user: null,
+      user,
       jogs: [],
       startDate: null,
       endDate: null,
@@ -23,6 +28,7 @@ export default class App extends Component {
     this.setLoading = this.setLoading.bind(this)
     this.handleAuthError = this.handleAuthError.bind(this)
     this.setUser = this.setUser.bind(this)
+    this.fetchJogs = this.fetchJogs.bind(this)
     this.signOut = this.signOut.bind(this)
     this.onDatesChange = this.onDatesChange.bind(this)
     this.renderJogs = this.renderJogs.bind(this)
@@ -38,12 +44,21 @@ export default class App extends Component {
   }
 
   signOut () {
-    this.setState({ user: null, jogs: {} })
+    this.setState({
+      user: null,
+      jogs: [],
+      jogsInRange: [],
+      startDate: null,
+      endDate: null
+    })
+    localStorage.removeItem('t')
   }
 
-  async setUser (user) {
-    this.setState({ user, loading: false })
-    let jogs = await apiGetJogs(user)
+  async fetchJogs (user) {
+    if (!user) {
+      return
+    }
+    let jogs = await getJobs(user)
     let startDate = null
     let endDate = null
     if (jogs.length > 0) {
@@ -53,15 +68,19 @@ export default class App extends Component {
     this.setState({ startDate, endDate, jogs, jogsInRange: jogs })
   }
 
+  setUser (user) {
+    this.setState({ user, loading: false })
+    this.fetchJogs(user)
+  }
+
   onDatesChange ({ startDate, endDate }) {
     const between = j => moment(j.date).isBetween(startDate, endDate, 'day', '[]')
     const jogsInRange = this.state.jogs.filter(between)
     this.setState({ startDate, endDate, jogsInRange })
   }
 
-  // bypass auth during dev
   componentWillMount () {
-    this.setUser({ email: 'j@x.co', password: '123456', id: '58e32eaacb5a3c8c34640d44' })
+    this.fetchJogs(this.state.user)
   }
 
   renderJogs (props) {

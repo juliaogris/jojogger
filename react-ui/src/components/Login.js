@@ -1,33 +1,29 @@
 import React, { Component, PropTypes } from 'react'
-import { apiLogin } from '../util/api'
+import { login, signup } from '../util/api'
 
 export default class Login extends Component {
   constructor () {
     super()
-    this.login = this.login.bind(this)
-    this.signup = this.signup.bind(this)
+    this.handleLoginClick = this.handleLoginClick.bind(this)
+    this.handleSignupClick = this.handleSignupClick.bind(this)
   }
 
-  login (event) {
+  handleLoginClick (event) {
     event.preventDefault()
     const { setLoading, setUser, handleAuthError } = this.props
     setLoading(true)
-    apiLogin(this.email.value, this.password.value)
-      .then((user) => {
-        console.log('user', user)
-        setUser(user)
-      })
-      .catch((error) => {
-        handleAuthError(error)
-      })
+    login(this.email.value, this.password.value)
+      .then(user => setUser(user))
+      .catch(error => handleAuthError(error))
   }
 
-  signup (event) {
+  handleSignupClick (event) {
     event.preventDefault()
-    // const {setLoading, handleAuthError} = this.props
-    // setLoading(true)
-    // firebase.auth().createUserWithEmailAndPassword(this.email.value, this.password.value)
-    //   .catch((error) => { handleAuthError(error) })
+    const { setLoading, setUser, handleAuthError } = this.props
+    setLoading(true)
+    signup(this.email.value, this.password.value)
+      .then(user => setUser(user))
+      .catch(error => handleAuthError(error))
   }
 
   render () {
@@ -36,8 +32,8 @@ export default class Login extends Component {
         <input placeholder='email@example.com' type='email' ref={c => (this.email = c)} />
         <input placeholder='your password' type='password' ref={c => (this.password = c)} />
         <div className='button-row'>
-          <button onClick={this.login}> Log in </button>
-          <button onClick={this.signup}> Sign up </button>
+          <button onClick={this.handleLoginClick}> Log in </button>
+          <button onClick={this.handleSignupClick}> Sign up </button>
         </div>
       </form>
     )
