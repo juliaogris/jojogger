@@ -39,6 +39,12 @@ export function signup (email, password) {
     method: 'POST',
     body: JSON.stringify({ email, password })
   })
+  .then(response => {
+    if (response.status === 400) {
+      throw Error('Email address already registered.')
+    }
+    return response
+  })
   .then(handleErrors)
   .then(response => response.json())
   .then(({ uid }) => {

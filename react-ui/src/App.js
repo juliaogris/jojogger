@@ -146,7 +146,7 @@ export default class App extends Component {
     if (!user) {
       return (
         <div>
-          {authError && <div className='error'>{authError.message}</div>}
+          {authError && <div className='auth-error'>{authError.message}</div>}
           <Login
             setLoading={this.setLoading}
             handleAuthError={this.handleAuthError}
