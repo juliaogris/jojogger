@@ -18,15 +18,20 @@ export default class App extends Component {
     }
     this.state = {
       authError: null,
+      jogError: null,
+      userError: null,
       loading: false,
       user,
       jogs: [],
       startDate: null,
       endDate: null,
-      jogsInRange: []
+      jogsInRange: [],
+      loadingJogs: false
     }
     this.setLoading = this.setLoading.bind(this)
     this.handleAuthError = this.handleAuthError.bind(this)
+    this.handleJogError = this.handleJogError.bind(this)
+    this.handleUserError = this.handleUserError.bind(this)
     this.setUser = this.setUser.bind(this)
     this.fetchJogs = this.fetchJogs.bind(this)
     this.setJogs = this.setJogs.bind(this)
@@ -44,6 +49,14 @@ export default class App extends Component {
     this.setState({ authError, loading: false })
   }
 
+  handleJogError (jogError) {
+    this.setState({ jogError })
+  }
+
+  handleUserError (userError) {
+    this.setState({ userError })
+  }
+
   signOut () {
     this.setState({
       user: null,
@@ -59,15 +72,17 @@ export default class App extends Component {
     if (!user) {
       return
     }
+    this.setState({ loadingJogs: true })
     this.setJogs(await getJogs(user))
+    this.setState({ loadingJogs: false })
   }
 
   setJogs (jogs) {
-    const compareJogs = (a, b) =>
-      (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)
     let startDate = null
     let endDate = null
     if (jogs.length > 0) {
+      const compareJogs = (a, b) =>
+        (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)
       jogs.sort(compareJogs)
       endDate = moment(jogs[0].date)
       startDate = moment(jogs[jogs.length - 1].date)
@@ -92,13 +107,18 @@ export default class App extends Component {
 
   renderJogs (props) {
     const { startDate, endDate, jogsInRange } = this.state
+    const { user, jogError, loadingJogs } = this.state
     return (
       <Jogs
         startDate={startDate}
         endDate={endDate}
         jogs={jogsInRange}
+        jogError={jogError}
         onDatesChange={this.handleDatesChange}
         setJogs={this.setJogs}
+        handleJogError={this.handleJogError}
+        user={user}
+        loadingJogs={loadingJogs}
         {...props}
       />
     )

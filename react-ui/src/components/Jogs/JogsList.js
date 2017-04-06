@@ -8,10 +8,28 @@ const JogRow = ({ jog, onEdit }) =>
 
 const JogCalendar = ({ startDate, endDate, onDatesChange }) =>
   <Calendar startDate={startDate} endDate={endDate} onDatesChange={onDatesChange} />
+
+const JogError = ({ handleJogError, jogError }) => {
+  if (!jogError) {
+    return null
+  }
+  const clickHandler = (event) => {
+    event.preventDefault()
+    handleJogError(null)
+  }
+  return (
+    <div className='error'>
+      {jogError.message}
+      <button onClick={clickHandler}>×</button>
+    </div>
+  )
+}
+
 const JogsList = (props) => {
   const { jogs, onEdit, onAddClick } = props
   return (
     <div className='page'>
+      <JogError {...props} />
       <JogCalendar {...props} />
       <table>
         <thead>

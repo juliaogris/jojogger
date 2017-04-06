@@ -4,6 +4,7 @@ import { login, signup } from '../util/api'
 export default class Login extends Component {
   constructor () {
     super()
+    this.validateInput = this.validateInput.bind(this)
     this.handleLoginClick = this.handleLoginClick.bind(this)
     this.handleSignupClick = this.handleSignupClick.bind(this)
   }

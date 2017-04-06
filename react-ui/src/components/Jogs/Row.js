@@ -8,7 +8,7 @@ export default class Row extends Component {
     const { date } = jog
     const distance = formatDistance(jog.distance)
     const duration = formatDuration(jog.duration)
-    const speed = getSpeed(duration, distance)
+    const speed = getSpeed(jog.duration, distance)
 
     return (
       <tr>

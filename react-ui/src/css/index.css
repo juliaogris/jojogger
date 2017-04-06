@@ -76,6 +76,7 @@ input {
   border-radius: 2px;
   border: 1px solid #e1e1e1;
   color: #777;
+  height: 1.8rem;
 }
 
 input:focus {
@@ -158,6 +159,10 @@ thead td {
   box-shadow: 2px 2px 2px 0 rgba(41, 41, 41, .3);
 }
 
+.add-button:hover {
+  background: #29b6f6
+}
+
 .add-icon {
   position: absolute;
   width: 30px;
@@ -171,9 +176,11 @@ thead td {
   border: 0px solid blue;
 }
 
-.jog-form {
-  border: 1px solid red;
+.input-error {
+  border-color: #d32f2f;
 }
-.jog-from button + button {
-  margin-left: 1em;
+
+.label-error {
+  color: #d32f2f;
 }
+
