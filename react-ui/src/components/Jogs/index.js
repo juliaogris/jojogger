@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import ErrorMessage from '../elements/ErrorMessage'
 import JogsList from './JogsList'
 import JogForm from './JogForm'
 import { createJog, updateJog, deleteJog } from '../../util/api'
@@ -9,9 +10,10 @@ export default class Jogs extends Component {
     this.state = {
       loading: false,
       view: 'list', // ['list', 'add', 'edit']
-      editJog: null
+      editJog: null,
+      error: null
     }
-    this.handleEdit = this.handleEdit.bind(this)
+    this.handleEditClick = this.handleEditClick.bind(this)
     this.handleAddClick = this.handleAddClick.bind(this)
     this.gotoList = this.gotoList.bind(this)
     this.handleUpdateJog = this.handleUpdateJog.bind(this)
@@ -19,8 +21,8 @@ export default class Jogs extends Component {
     this.handleCreateJog = this.handleCreateJog.bind(this)
   }
 
-  handleEdit (id) {
-    console.log('Jogs.handleEdit', id)
+  handleEditClick (id) {
+    console.log('Jogs.handleEditClick', id)
     const { jogs } = this.props
     const jog = jogs.find(jog => jog.id === id)
     const editJog = { ...jog }
@@ -85,17 +87,20 @@ export default class Jogs extends Component {
   }
 
   render () {
-    const { view, editJog, loading } = this.state
+    const { view, editJog, loading, error } = this.state
     const { jogs } = this.props
     if (loading || this.props.loading) {
       return <h1>Loading</h1>
+    }
+    if (error) {
+      return <ErrorMessage error={error} onCancel={() => { this.setState({ error: null }) }} />
     }
     if (view === 'add') {
       return <JogForm createJog={this.handleCreateJog} onCancel={this.gotoList} />
     }
     if (jogs.length === 0) {
       return (
-        <p className='jog-empty'>No jogs tracked yet.
+        <p className='info'>No jogs tracked yet.
           <button onClick={() => { this.setState({ view: 'add' }) }}>
             Add one.
           </button>
@@ -103,7 +108,7 @@ export default class Jogs extends Component {
       )
     }
     if (view === 'list') {
-      return <JogsList onEdit={this.handleEdit} onAddClick={this.handleAddClick} {...this.props} />
+      return <JogsList onEdit={this.handleEditClick} onAddClick={this.handleAddClick} {...this.props} />
     }
     if (view === 'edit') {
       return <JogForm
@@ -120,6 +125,5 @@ Jogs.propTypes = {
   onDatesChange: PropTypes.func.isRequired,
   setJogs: PropTypes.func.isRequired,
   jogs: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
-  handleJogError: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired
 }

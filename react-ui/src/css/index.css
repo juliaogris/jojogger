@@ -84,23 +84,29 @@ a:hover,
   color: #03a9f4;
 }
 
-input {
+input, select {
+  width: 14em;
   display: block;
-  margin-top: 1em;
   padding: 0.6em;
   border-radius: 2px;
   border: 1px solid #e1e1e1;
   color: #777;
   height: 1.8rem;
+  background: none;
 }
 
-input:focus {
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 2px;
+}
+
+input:focus, select:focus {
   border: 1px solid #aaa;
   outline: 0;
 }
 
 .login {
-  padding-top: 10vh;
+  padding-top: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,11 +127,13 @@ input:focus {
   background: #0288d1;
 }
 
+.login input {
+  margin-top: 1.5em;
+}
 .auth-error {
   width: 100%;
   text-align: center;
   color: #d32f2f;
-  padding: 2em 20vw 0;
   line-height: 1.4;
   font-size: 90%;
 }
@@ -271,36 +279,36 @@ thead td {
   text-align: center;
 }
 
-.jog-form {
+.jojog-form {
   position: relative;
   border: 0px solid red;
   text-align: left;
   padding-top: 2rem
 }
 
-.jog-form label {
+.jojog-form label {
   font-size: 70%;
   border: 0px solid blue;
   padding: 0;
 }
 
-.jog-form input {
+.jojog-form input, .jojog-form select{
   margin-bottom: 1rem;
   margin-top: .2rem;
   width: 100%;
 }
 
-.jog-empty {
+.info {
   margin-top: 5em;
 }
 
-.jog-empty button {
+.info button {
   background: none;
   color:#03a9f4;
   font-size: 100%;
 }
 
-.jog-empty button:hover {
+.info button:hover {
   color:#29b6f6;
 }
 .settings-error {
@@ -312,4 +320,7 @@ thead td {
   line-height: 1.4;
   font-size: 70%;
   padding-bottom: 2em;
+}
+.no-top {
+  border-top: none;
 }

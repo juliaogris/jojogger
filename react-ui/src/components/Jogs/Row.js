@@ -1,39 +1,15 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import moment from 'moment'
-import Pencil from '../../svgs/Pencil'
+import EditButton from '../elements/EditButton'
 
-export default class Row extends Component {
-  render () {
-    const { onEdit, id, jog } = this.props
-    const { date } = jog
-    const distance = formatDistance(jog.distance)
-    const duration = formatDuration(jog.duration)
-    const speed = getSpeed(jog.duration, distance)
-
-    return (
-      <tr>
-        <td>{date}</td>
-        <td>{distance}</td>
-        <td>{duration}</td>
-        <td>{speed}</td>
-        { onEdit && <td> <EditButton onEdit={onEdit} id={id} /> </td> }
-      </tr>
-    )
-  }
-}
-
-Row.propTypes = {
-  jog: PropTypes.object.isRequired
-}
-
-function formatDistance (distance) {
+const formatDistance = (distance) => {
   if (distance === 0) {
     return '-'
   }
   return distance.toFixed(2)
 }
 
-function formatDuration (duration) {
+const formatDuration = (duration) => {
   if (duration === '00:00:00' || duration === '0:00:00') {
     return '-'
   }
@@ -47,7 +23,7 @@ function formatDuration (duration) {
   return d
 }
 
-function getSpeed (timeStr, distanceKm) {
+const getSpeed = (timeStr, distanceKm) => {
   const hours = moment.duration(timeStr).asHours()
   if (hours === 0) {
     return '-'
@@ -55,10 +31,25 @@ function getSpeed (timeStr, distanceKm) {
   return (distanceKm / hours).toFixed(2)
 }
 
-function EditButton ({ onEdit, id }) {
+const Row = ({ onEdit, id, jog }) => {
+  const { date } = jog
+  const distance = formatDistance(jog.distance)
+  const duration = formatDuration(jog.duration)
+  const speed = getSpeed(jog.duration, distance)
+
   return (
-    <button onClick={() => onEdit(id)} className='edit-button'>
-      <Pencil color={'#777'} />
-    </button>
+    <tr>
+      <td>{date}</td>
+      <td>{distance}</td>
+      <td>{duration}</td>
+      <td>{speed}</td>
+      { onEdit && <td> <EditButton onEdit={onEdit} id={id} /> </td> }
+    </tr>
   )
+}
+
+export default Row
+
+Row.propTypes = {
+  jog: PropTypes.object.isRequired
 }

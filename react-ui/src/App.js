@@ -7,7 +7,7 @@ import Login from './components/Login'
 import Jogs from './components/Jogs/'
 import Weekly from './components/Weekly'
 import Settings from './components/Settings'
-import Users from './components/Users'
+import Users from './components/Users/'
 
 import { getJogs } from './util/api'
 import Cog from './svgs/Cog'
@@ -21,7 +21,6 @@ export default class App extends Component {
     }
     this.state = {
       authError: null,
-      jogError: null,
       userError: null,
       loading: false,
       user,
@@ -29,15 +28,16 @@ export default class App extends Component {
       startDate: null,
       endDate: null,
       jogsInRange: [],
-      loadingJogs: false
+      loadingJogs: false,
+      users: null
     }
     this.setLoading = this.setLoading.bind(this)
     this.handleAuthError = this.handleAuthError.bind(this)
-    this.handleJogError = this.handleJogError.bind(this)
     this.handleUserError = this.handleUserError.bind(this)
     this.setUser = this.setUser.bind(this)
     this.fetchJogs = this.fetchJogs.bind(this)
     this.setJogs = this.setJogs.bind(this)
+    this.setUsers = this.setUsers.bind(this)
     this.signOut = this.signOut.bind(this)
     this.handleDatesChange = this.handleDatesChange.bind(this)
     this.renderJogs = this.renderJogs.bind(this)
@@ -50,10 +50,6 @@ export default class App extends Component {
 
   handleAuthError (authError) {
     this.setState({ authError, loading: false })
-  }
-
-  handleJogError (jogError) {
-    this.setState({ jogError })
   }
 
   handleUserError (userError) {
@@ -78,6 +74,10 @@ export default class App extends Component {
     this.setState({ loadingJogs: true })
     this.setJogs(await getJogs(user))
     this.setState({ loadingJogs: false })
+  }
+
+  setUsers (users) {
+    this.setState({ users })
   }
 
   setJogs (jogs) {
@@ -110,16 +110,14 @@ export default class App extends Component {
 
   renderJogs (props) {
     const { startDate, endDate, jogsInRange } = this.state
-    const { user, jogError, loadingJogs } = this.state
+    const { user, loadingJogs } = this.state
     return (
       <Jogs
         startDate={startDate}
         endDate={endDate}
         jogs={jogsInRange}
-        jogError={jogError}
         onDatesChange={this.handleDatesChange}
         setJogs={this.setJogs}
-        handleJogError={this.handleJogError}
         user={user}
         loading={loadingJogs}
         {...props}
@@ -141,6 +139,7 @@ export default class App extends Component {
   }
 
   render () {
+    console.log(`App.render - state `)// ${JSON.stringify(this.state)}`)
     const { user, loading, authError } = this.state
     if (loading) {
       return <h1>Signing in...</h1>
@@ -149,10 +148,10 @@ export default class App extends Component {
     if (!user) {
       return (
         <div>
-          {authError && <div className='auth-error'>{authError.message}</div>}
           <Login
             setLoading={this.setLoading}
             handleAuthError={this.handleAuthError}
+            authError={authError}
             setUser={this.setUser}
           />
         </div>
@@ -160,7 +159,11 @@ export default class App extends Component {
     }
     const UsersRoute = () => {
       if (user.role !== 'regular') {
-        return <Route path='/users' render={() => <Users authedUser={user} />} />
+        return (
+          <Route
+            path='/users'
+            render={() => <Users authedUser={user} />}
+          />)
       }
       return <Redirect to='/jogs' />
     }

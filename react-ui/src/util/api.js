@@ -91,6 +91,7 @@ export function deleteJog (user, jog, admin) {
 
 export function getUsers (amdin) {
   const { token } = amdin
+  console.log('Api.getUsers')
   return fetch(`/api/users/`, Opts(token, 'GET'))
   .then(handleErrors)
   .then(response => response.json())

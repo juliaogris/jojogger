@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import Plus from '../../svgs/Plus'
+import AddButton from '../elements/AddButton'
 import Calendar from './Calendar'
 import Row from './Row'
 
@@ -9,39 +9,16 @@ const JogRow = ({ jog, onEdit }) =>
 const JogCalendar = ({ startDate, endDate, onDatesChange }) =>
   <Calendar startDate={startDate} endDate={endDate} onDatesChange={onDatesChange} />
 
-const JogError = ({ handleJogError, jogError }) => {
-  if (!jogError) {
-    return null
-  }
-  const clickHandler = (event) => {
-    event.preventDefault()
-    handleJogError(null)
-  }
-  return (
-    <div className='error'>
-      {jogError.message}
-      <button onClick={clickHandler}>×</button>
-    </div>
-  )
-}
-
 const JogsList = (props) => {
   const { jogs, onEdit, onAddClick } = props
   return (
     <div className='page'>
-      <JogError {...props} />
       <JogCalendar {...props} />
       <table>
         <thead>
           <tr>
             <td>Date</td><td>Distance</td><td>Duration</td><td>Speed</td>
-            <td>
-              <div className='add-button-wrap'>
-                <button className='add-button' onClick={onAddClick}>
-                  <Plus className='add-icon' />
-                </button>
-              </div>
-            </td>
+            <td><AddButton onClick={onAddClick} /></td>
           </tr>
         </thead>
         <tbody>

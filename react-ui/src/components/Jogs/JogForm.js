@@ -2,25 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
 import TickButton from '../elements/TickButton'
-
-const DeleteButton = ({ show, onClick }) => {
-  if (!show) {
-    return null
-  }
-  return (
-    <div className='delete-row'>
-      <span className='delete-button' onClick={onClick}>
-        Delete this Jog
-      </span>
-    </div>)
-}
+import DeleteButton from '../elements/DeleteButton'
 
 export default class JogForm extends Component {
   constructor (props) {
     super(props)
     const { jog } = this.props
     this.state = {
-      view: 'list', // ['list', 'add', 'edit']
       duration: jog ? jog.duration : '01:00:00',
       date: jog ? jog.date : moment().format('YYYY-MM-DD'),
       distance: jog ? jog.distance : '10.0',
@@ -42,7 +30,6 @@ export default class JogForm extends Component {
 
   validateInput () {
     const { date, duration, distance } = this.state
-    console.log('JogForm.validateInput :', date, duration, distance)
     const m = moment(date, 'YYYY-MM-DD')
     const errors = {}
     if (!m.isValid()) {
@@ -110,43 +97,43 @@ export default class JogForm extends Component {
 
   render () {
     console.log('JogForm.render')
-    const showDeleteButton = !!this.props.jog
+    const canDelete = !!this.props.jog
     const { date, duration, distance } = this.state
     const { dateError, durationError, distanceError } = this.state
     console.log('JogForm.render 2')
     return (
-      <form className='jog-form' action={this.handleSubmit}>
+      <form className='jojog-form' action={this.handleSubmit}>
         <label className={dateError ? 'label-error' : ''}>
           {dateError || 'Date'}
+          <input
+            type='date'
+            name='date'
+            value={date}
+            onChange={this.handleInputChange}
+            className={dateError ? 'input-error' : ''}
+          />
         </label>
-        <input
-          type='date'
-          name='date'
-          value={date}
-          onChange={this.handleInputChange}
-          className={dateError ? 'input-error' : ''}
-        />
         <label className={durationError ? 'label-error' : ''}>
           {durationError || 'Duration'}
+          <input
+            type='text'
+            name='duration'
+            value={duration}
+            onChange={this.handleInputChange}
+            className={durationError ? 'input-error' : ''}
+          />
         </label>
-        <input
-          type='text'
-          name='duration'
-          value={duration}
-          onChange={this.handleInputChange}
-          className={durationError ? 'input-error' : ''}
-        />
         <label className={distanceError ? 'label-error' : ''}>
           {distanceError || 'Distance in km'}
+          <input
+            type='number'
+            name='distance'
+            value={distance}
+            onChange={this.handleInputChange}
+            className={distanceError ? 'input-error' : ''}
+          />
         </label>
-        <input
-          type='text'
-          name='distance'
-          value={distance}
-          onChange={this.handleInputChange}
-          className={distanceError ? 'input-error' : ''}
-        />
-        <DeleteButton show={!!showDeleteButton} onClick={this.handleDelete} />
+        <DeleteButton show={canDelete} onClick={this.handleDelete} item='Jog' />
         <TickButton onClick={this.handleSubmit} />
         <button onClick={this.handleCancel} className='cancel-button'>×</button>
       </form>

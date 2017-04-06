@@ -53,8 +53,10 @@ export default class Login extends Component {
 
   render () {
     const { email, password } = this.state
+    const { authError } = this.props
     return (
       <form className='login' action={this.login}>
+        {authError && <div className='auth-error'>{authError.message}</div>}
         <input
           placeholder='email@example.com'
           type='email'
