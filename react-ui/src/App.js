@@ -6,8 +6,11 @@ import moment from 'moment'
 import Login from './components/Login'
 import Jogs from './components/Jogs/'
 import Weekly from './components/Weekly'
+import Settings from './components/Settings'
+import Users from './components/Users'
 
 import { getJogs } from './util/api'
+import Cog from './svgs/Cog'
 
 export default class App extends Component {
   constructor () {
@@ -140,7 +143,7 @@ export default class App extends Component {
   render () {
     const { user, loading, authError } = this.state
     if (loading) {
-      return <h1>Signing you in.</h1>
+      return <h1>Signing in...</h1>
     }
 
     if (!user) {
@@ -155,19 +158,29 @@ export default class App extends Component {
         </div>
       )
     }
-
+    const UsersRoute = () => {
+      if (user.role !== 'regular') {
+        return <Route path='/users' render={() => <Users authedUser={user} />} />
+      }
+      return <Redirect to='/jogs' />
+    }
     return (
       <Router>
         <div className='app'>
           <nav>
+            <NavLink to='/settings' activeClassName='active' className='settings'><Cog color='#777' /></NavLink>
             <NavLink to='/jogs' activeClassName='active'>Jogs</NavLink>
             <NavLink to='/weekly' activeClassName='active'>Weekly</NavLink>
-            <button onClick={() => { this.signOut() }}>Log out</button>
+            {user.role !== 'regular' &&
+              <NavLink to='/users' activeClassName='active'>Users</NavLink>}
+            <button className='signout' onClick={() => { this.signOut() }}>Log out</button>
           </nav>
           <Switch>
             <Redirect exact from='/' to='/jogs' />
+            <Route path='/settings' render={() => <Settings user={user} signOut={this.signOut} />} />
             <Route path='/jogs' render={this.renderJogs} />
             <Route path='/weekly' render={this.renderWeekly} />
+            <UsersRoute />
             <Redirect to='/jogs' />
           </Switch>
         </div>

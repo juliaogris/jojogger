@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { login, signup } from '../util/api'
+import { getEmailError, getPasswordError } from '../util/funcs'
 
 export default class Login extends Component {
   constructor () {
@@ -8,32 +9,21 @@ export default class Login extends Component {
       email: '',
       password: ''
     }
-    this.validateInput = this.validateInput.bind(this)
     this.handleLoginClick = this.handleLoginClick.bind(this)
     this.handleSignupClick = this.handleSignupClick.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
-  validateInput () {
-    const { email, password } = this.state
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return { message: 'Invalid email address format.' }
-    }
-    if (password.length < 6) {
-      return { message: 'Password must be at least 6 characters long.' }
-    }
-  }
-
   handleLoginClick (event) {
     event.preventDefault()
+    const { email, password } = this.state
     const { setLoading, setUser, handleAuthError } = this.props
-    const error = this.validateInput()
+    const error = getEmailError(email) || getPasswordError(password)
     if (error) {
       handleAuthError(error)
       return
     }
 
-    const { email, password } = this.state
     setLoading(true)
     login(email, password)
       .then(user => setUser(user))
@@ -43,8 +33,14 @@ export default class Login extends Component {
   handleSignupClick (event) {
     event.preventDefault()
     const { setLoading, setUser, handleAuthError } = this.props
-    setLoading(true)
     const { email, password } = this.state
+    const error = getEmailError(email) || getPasswordError(password)
+    if (error) {
+      handleAuthError(error)
+      return
+    }
+
+    setLoading(true)
     signup(email, password)
       .then(user => setUser(user))
       .catch(error => handleAuthError(error))

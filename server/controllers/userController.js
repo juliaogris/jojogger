@@ -11,8 +11,8 @@ const extractUser = (user) => {
 }
 
 exports.login = (req, res) => {
-  const { email, _id } = req.user
-  res.json({ email, id: _id })
+  const { email, _id, role } = req.user
+  res.json({ email, id: _id, role })
 }
 
 // GET, POST /api/users

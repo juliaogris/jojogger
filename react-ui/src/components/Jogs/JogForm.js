@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
-import Tick from '../../svgs/Tick'
-import './css/jogs.css'
+import TickButton from '../elements/TickButton'
 
 const DeleteButton = ({ show, onClick }) => {
   if (!show) {
@@ -110,9 +109,11 @@ export default class JogForm extends Component {
   }
 
   render () {
+    console.log('JogForm.render')
     const showDeleteButton = !!this.props.jog
     const { date, duration, distance } = this.state
     const { dateError, durationError, distanceError } = this.state
+    console.log('JogForm.render 2')
     return (
       <form className='jog-form' action={this.handleSubmit}>
         <label className={dateError ? 'label-error' : ''}>
@@ -146,11 +147,7 @@ export default class JogForm extends Component {
           className={distanceError ? 'input-error' : ''}
         />
         <DeleteButton show={!!showDeleteButton} onClick={this.handleDelete} />
-        <div className='tick-button-wrap'>
-          <button type='submit' className='tick-button' onClick={this.handleSubmit}>
-            <Tick color='white' />
-          </button>
-        </div>
+        <TickButton onClick={this.handleSubmit} />
         <button onClick={this.handleCancel} className='cancel-button'>×</button>
       </form>
     )

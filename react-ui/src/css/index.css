@@ -37,8 +37,6 @@ nav {
 nav > button {
   position: absolute;
   padding: 0 1.5em;
-  top: 0;
-  right: 0;
   border: none;
   line-height: 40px;
   background: none;
@@ -52,6 +50,23 @@ nav > button:hover {
 nav > button:focus {
   outline: 0;
 }
+
+nav > .signout {
+  top: 0;
+  right: 0;
+}
+
+nav > .settings {
+  position: absolute;
+  padding: 0 1.5em;
+  border: none;
+  line-height: 40px;
+  background: none;
+  color: #777;
+  top: 5px;
+  left: 0;
+}
+
 
 a {
   line-height: 40px;
@@ -186,3 +201,115 @@ thead td {
   color: #d32f2f;
 }
 
+
+.tick-button-wrap {
+  width: 100;
+  position: relative;
+}
+
+.tick-button {
+  position: absolute;
+  background: #03a9f4;
+  color: white;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  right: 0px;
+  box-shadow: 2px 2px 2px 0 rgba(41, 41, 41, .3);
+}
+
+.tick-button:hover {
+  background: #29b6f6
+}
+
+.cancel-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: none;
+  border: 0px solid blue;
+  display: block;
+  font-size: 180%;
+  color: #777;
+  padding: 0;
+  border: 0px solid red;
+}
+
+.cancel-button:hover {
+  color: #03a9f4;
+}
+
+.back-icon {
+  border: 0px solid green;
+  width: 20px;
+  height: 20px;
+  left: 5px;
+  top: 2px;
+}
+
+
+.delete-button {
+  text-decoration: underline;
+  background: none;
+  border: none;
+  color: #03a9f4;
+  border: 0px solid green;
+  font-size: 70%
+}
+
+.delete-button:hover {
+  color: #29b6f6;
+}
+
+.delete-row {
+  width: 100%;
+  padding-top: .5rem;
+  padding-bottom: 2rem;
+  border: 0px solid red;
+  text-align: center;
+}
+
+.jog-form {
+  position: relative;
+  border: 0px solid red;
+  text-align: left;
+  padding-top: 2rem
+}
+
+.jog-form label {
+  font-size: 70%;
+  border: 0px solid blue;
+  padding: 0;
+}
+
+.jog-form input {
+  margin-bottom: 1rem;
+  margin-top: .2rem;
+  width: 100%;
+}
+
+.jog-empty {
+  margin-top: 5em;
+}
+
+.jog-empty button {
+  background: none;
+  color:#03a9f4;
+  font-size: 100%;
+}
+
+.jog-empty button:hover {
+  color:#29b6f6;
+}
+.settings-error {
+  border: 0px solid blue;
+  width: 8.2rem;
+  margin: 0 auto;
+  text-align: center;
+  color: #d32f2f;
+  line-height: 1.4;
+  font-size: 70%;
+  padding-bottom: 2em;
+}

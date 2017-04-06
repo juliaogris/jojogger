@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import JogsList from './JogsList'
 import JogForm from './JogForm'
 import { createJog, updateJog, deleteJog } from '../../util/api'
-import './css/jogs.css'
 
 export default class Jogs extends Component {
   constructor () {

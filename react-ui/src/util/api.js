@@ -6,6 +6,7 @@ function handleErrors (response) {
   }
   if (!response.ok) {
     console.error('Internal Error', response.status, response.statusText)
+    response.json().then(c => console.error(JSON.stringify(c)))
     throw Error('We are sorry, something went wrong.')
   }
   return response
@@ -26,7 +27,7 @@ export function login (email, password) {
   .then(handleErrors)
   .then(response => response.json())
   .then(({ id, role }) => {
-    const user = { token, id, role }
+    const user = { token, id, role, email }
     localStorage.setItem('t', btoa(JSON.stringify(user)))
     return user
   })
@@ -47,8 +48,8 @@ export function signup (email, password) {
   })
   .then(handleErrors)
   .then(response => response.json())
-  .then(({ uid, role }) => {
-    const user = { token, id: uid }
+  .then(({ uid }) => {
+    const user = { token, id: uid, email, role: 'regular' }
     localStorage.setItem('t', btoa(JSON.stringify(user)))
     return user
   })
