@@ -11,10 +11,16 @@ const Row = ({ user, onEdit }) =>
   </tr>)
 
 const UsersList = (props) => {
-  const { users, onEdit, onAddClick } = props
-  console.log('UsersList.render - users', users)
+  const { users, onEdit, onAddClick, authedUser } = props
   if (!users) {
     return null
+  }
+  let filteredUsers = users
+  if (authedUser.role !== 'admin') {
+    filteredUsers = users.filter(u => u.role === 'regular')
+  }
+  if (filteredUsers.length === 0) {
+    return <p className='info'>No users with "regular" role.</p>
   }
   return (
     <div className='page'>
@@ -28,7 +34,7 @@ const UsersList = (props) => {
           </tr>
         </thead>
         <tbody>
-          { users.map(user => <Row key={user.id} user={user} onEdit={onEdit} />) }
+          { filteredUsers.map(user => <Row key={user.id} user={user} onEdit={onEdit} />) }
         </tbody>
       </table>
     </div>

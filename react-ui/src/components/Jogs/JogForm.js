@@ -54,7 +54,6 @@ export default class JogForm extends Component {
       errors.distanceError = 'Distance format 1.23'
     }
     if (Object.keys(errors).length !== 0) {
-      console.log('validation errors', errors)
       this.setState(errors)
       return null
     }
@@ -70,7 +69,6 @@ export default class JogForm extends Component {
     event.preventDefault()
     const { updateJog, createJog } = this.props
     const newJog = this.validateInput()
-    console.log('JogForm.handleSumit - newJog', newJog)
     if (!newJog) {
       return
     }
@@ -96,11 +94,9 @@ export default class JogForm extends Component {
   }
 
   render () {
-    console.log('JogForm.render')
     const canDelete = !!this.props.jog
     const { date, duration, distance } = this.state
     const { dateError, durationError, distanceError } = this.state
-    console.log('JogForm.render 2')
     return (
       <form className='jojog-form' action={this.handleSubmit}>
         <label className={dateError ? 'label-error' : ''}>

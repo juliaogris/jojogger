@@ -29,7 +29,7 @@ export default class App extends Component {
       endDate: null,
       jogsInRange: [],
       loadingJogs: false,
-      users: null
+      users: []
     }
     this.setLoading = this.setLoading.bind(this)
     this.handleAuthError = this.handleAuthError.bind(this)
@@ -139,8 +139,7 @@ export default class App extends Component {
   }
 
   render () {
-    console.log(`App.render - state `)// ${JSON.stringify(this.state)}`)
-    const { user, loading, authError } = this.state
+    const { user, loading, authError, users } = this.state
     if (loading) {
       return <h1>Signing in...</h1>
     }
@@ -162,7 +161,7 @@ export default class App extends Component {
         return (
           <Route
             path='/users'
-            render={() => <Users authedUser={user} />}
+            render={() => <Users authedUser={user} setUsers={this.setUsers} users={users} />}
           />)
       }
       return <Redirect to='/jogs' />

@@ -22,7 +22,6 @@ export default class Jogs extends Component {
   }
 
   handleEditClick (id) {
-    console.log('Jogs.handleEditClick', id)
     const { jogs } = this.props
     const jog = jogs.find(jog => jog.id === id)
     const editJog = { ...jog }
@@ -30,7 +29,6 @@ export default class Jogs extends Component {
   }
 
   handleAddClick (event) {
-    console.log('Jogs.handleAddClick')
     event.preventDefault()
     this.setState({ view: 'add' })
   }
@@ -55,7 +53,6 @@ export default class Jogs extends Component {
 
   handleDeleteJog (deletedJog) {
     const { jogs, setJogs, user, handleJogError } = this.props
-    console.log('Jogs.handleDeleteJog', jogs)
     const updatedJogs = JSON.parse(JSON.stringify(jogs))
     const i = jogs.findIndex(jog => jog.id === deletedJog.id)
     updatedJogs.splice(i, 1)

@@ -5,13 +5,13 @@ import UsersList from './UsersList'
 import UserForm from './UserForm'
 
 export default class Users extends Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
-      users: null, // this.props.users,
       view: 'list', // 'add', 'edit'
       editUser: null,
-      error: null
+      error: null,
+      loading: false
     }
     this.fetchUsers = this.fetchUsers.bind(this)
     this.handleEditClick = this.handleEditClick.bind(this)
@@ -23,7 +23,7 @@ export default class Users extends Component {
   }
 
   handleEditClick (id) {
-    const { users } = this.state
+    const { users } = this.props
     const user = users.find(u => u.id === id)
     const editUser = { ...user }
     this.setState({ view: 'edit', editUser })
@@ -36,7 +36,10 @@ export default class Users extends Component {
 
   componentWillMount () {
     this.mounted = true
-    this.fetchUsers()
+    const { users } = this.props
+    if (!users || users.length === 0) {
+      this.fetchUsers()
+    }
   }
 
   componentWillUnmount () {
@@ -44,17 +47,13 @@ export default class Users extends Component {
   }
 
   async fetchUsers () {
-    console.log('Users.fetchUsers')
     const users = await getUsers(this.props.authedUser)
-    if (this.mounted) {
-      this.setState({ users, view: 'list' })
-    }
-    // this.props.setUsers(users)
+    this.props.setUsers(users)
   }
 
   handleCreateUser (user) {
     const { authedUser } = this.props
-    this.setState({ users: null })
+    this.props.setUsers([])
     createUser(authedUser, user)
       .then(j => {
         this.fetchUsers()
@@ -66,17 +65,18 @@ export default class Users extends Component {
 
   crudUser (user, apiFunc) {
     const { authedUser } = this.props
-    this.setState({ users: null })
+    this.setState({ loading: true })
     apiFunc(authedUser, user)
       .then(j => {
-        console.log('User.js. crud - done')
         this.fetchUsers()
+        if (this.mounted) {
+          this.setState({ loading: false, view: 'list' })
+        }
       })
       .catch(error => {
         if (this.mounted) {
-          this.setState({ error })
+          this.setState({ error, loading: false })
         }
-        this.fetchUsers()
       })
   }
 
@@ -85,7 +85,6 @@ export default class Users extends Component {
   }
 
   handleDeleteUser (user) {
-    console.log('User.js.handleDelteUser')
     this.crudUser(user, deleteUser)
   }
 
@@ -94,17 +93,16 @@ export default class Users extends Component {
   }
 
   render () {
-    console.log('Users.render', JSON.stringify(this.state), JSON.stringify(this.props))
-    const { users, view, editUser, error } = this.state
+    const { view, editUser, error, loading } = this.state
+    const { users } = this.props
     const authedRole = this.props.authedUser.role
     if (error) {
       return <ErrorMessage error={error} onCancel={() => { this.setState({ error: null }) }} />
     }
-    if (users === null) {
+    if (!users || users.length === 0 || loading) {
       return <p className='info'>Getting users...</p>
     }
     if (view === 'list') {
-      console.log('Users.render - list', users)
       return <UsersList users={users} onEdit={this.handleEditClick} onAddClick={this.handleAddClick} {...this.props} />
     }
     if (view === 'add') {
@@ -123,6 +121,6 @@ export default class Users extends Component {
 }
 
 Users.propTypes = {
-  authedUser: PropTypes.object.isRequired
-  // setUsers: PropTypes.func.isRequired
+  authedUser: PropTypes.object.isRequired,
+  setUsers: PropTypes.func.isRequired
 }

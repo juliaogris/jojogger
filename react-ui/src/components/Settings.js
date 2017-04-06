@@ -48,7 +48,7 @@ export default class Settings extends Component {
     const { email, password, error } = this.state
 
     return (
-      <form className='jog-form' action={this.handleSubmit}>
+      <form className='jojog-form' action={this.handleSubmit}>
         {error && <div className='settings-error'>{error.message}</div>}
         <label>email</label>
         <input

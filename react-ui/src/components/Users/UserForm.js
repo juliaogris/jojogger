@@ -57,7 +57,6 @@ export default class UserForm extends Component {
     }
 
     if (Object.keys(errors).length !== 0) {
-      console.log('validation errors', errors)
       this.setState(errors)
       return null
     }
@@ -76,7 +75,6 @@ export default class UserForm extends Component {
     event.preventDefault()
     const { updateUser, createUser } = this.props
     const newUser = this.valiemailInput()
-    console.log('UserForm.handleSumit - newUser', newUser)
     if (!newUser) {
       return
     }
