@@ -25,8 +25,8 @@ export function login (email, password) {
   return fetch('/api/login', Opts(token))
   .then(handleErrors)
   .then(response => response.json())
-  .then(({ id }) => {
-    const user = { token, id }
+  .then(({ id, role }) => {
+    const user = { token, id, role }
     localStorage.setItem('t', btoa(JSON.stringify(user)))
     return user
   })
@@ -47,22 +47,24 @@ export function signup (email, password) {
   })
   .then(handleErrors)
   .then(response => response.json())
-  .then(({ uid }) => {
+  .then(({ uid, role }) => {
     const user = { token, id: uid }
     localStorage.setItem('t', btoa(JSON.stringify(user)))
     return user
   })
 }
 
-export function getJogs (user) {
-  const { token, id } = user
+export function getJogs (user, admin) {
+  const token = admin ? admin.token : user.token
+  const { id } = user
   return fetch(`/api/users/${id}/jogs`, Opts(token, 'GET'))
   .then(handleErrors)
   .then(response => response.json())
 }
 
-export function createJog (user, jog) {
-  const { token, id } = user
+export function createJog (user, jog, admin) {
+  const token = admin ? admin.token : user.token
+  const { id } = user
   const opts = Opts(token, 'POST', JSON.stringify(jog))
   return fetch(`/api/users/${id}/jogs/`, opts)
   .then(handleErrors)
@@ -70,46 +72,48 @@ export function createJog (user, jog) {
   .then(json => json.data)
 }
 
-export function updateJog (user, jog) {
-  const { token, id } = user
+export function updateJog (user, jog, admin) {
+  const token = admin ? admin.token : user.token
+  const { id } = user
   const opts = Opts(token, 'PUT', JSON.stringify(jog))
   return fetch(`/api/users/${id}/jogs/${jog.id}`, opts)
   .then(handleErrors)
 }
 
-export function deleteJog (user, jog) {
-  const { token, id } = user
+export function deleteJog (user, jog, admin) {
+  const token = admin ? admin.token : user.token
+  const { id } = user
   const opts = Opts(token, 'DELETE', JSON.stringify(jog))
   return fetch(`/api/users/${id}/jogs/${jog.id}`, opts)
   .then(handleErrors)
 }
 
-export function getUsers (user) {
-  const { token } = user
+export function getUsers (amdin) {
+  const { token } = amdin
   return fetch(`/api/users/`, Opts(token, 'GET'))
   .then(handleErrors)
   .then(response => response.json())
 }
 
-export function createUser (user, newUser) {
-  const { token } = user
-  return fetch(`/api/users/`, Opts(token, 'POST', JSON.stringify(newUser)))
+export function createUser (admin, user) {
+  const { token } = admin
+  return fetch(`/api/users/`, Opts(token, 'POST', JSON.stringify(user)))
   .then(handleErrors)
   .then(response => response.json())
 }
 
-export function updateUser (user, updatedUser) {
-  const { token } = user
-  const opts = Opts(token, 'PUT', JSON.stringify(updatedUser))
-  return fetch(`/api/users/${updatedUser.id}`, opts)
+export function updateUser (admin, user) {
+  const { token } = admin
+  const opts = Opts(token, 'PUT', JSON.stringify(user))
+  return fetch(`/api/users/${user.id}`, opts)
   .then(handleErrors)
   .then(response => response.json())
 }
 
-export function deleteUser (user, deletedUser) {
-  const { token } = user
-  const opts = Opts(token, 'DELETE', JSON.stringify(deletedUser))
-  return fetch(`/api/users/${deletedUser.id}`, opts)
+export function deleteUser (admin, user) {
+  const { token } = admin
+  const opts = Opts(token, 'DELETE', JSON.stringify(user))
+  return fetch(`/api/users/${user.id}`, opts)
   .then(handleErrors)
   .then(response => response.json())
 }

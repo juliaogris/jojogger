@@ -84,3 +84,17 @@
   margin-top: .2rem;
   width: 100%;
 }
+
+.jog-empty {
+  margin-top: 5em;
+}
+
+.jog-empty button {
+  background: none;
+  color:#03a9f4;
+  font-size: 100%;
+}
+
+.jog-empty button:hover {
+  color:#29b6f6;
+}

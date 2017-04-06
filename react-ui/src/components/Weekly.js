@@ -5,8 +5,11 @@ import Row from './Jogs/Row'
 import Calendar from './Jogs/Calendar'
 
 const Weekly = ({ startDate, endDate, jogs, onDatesChange }) => {
-  const weekly = summarizeWeeklyJogs(jogs)
+  if (jogs.length === 0) {
+    return <h1>No jogs tracked yet.</h1>
+  }
 
+  const weekly = summarizeWeeklyJogs(jogs)
   const weeklyKeys = Object.keys(weekly).sort().reverse()
   return (
     <div className='page'>

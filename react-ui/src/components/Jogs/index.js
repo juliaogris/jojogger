@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import JogsList from './JogsList'
 import JogForm from './JogForm'
 import { createJog, updateJog, deleteJog } from '../../util/api'
+import './css/jogs.css'
 
 export default class Jogs extends Component {
   constructor () {
@@ -86,21 +87,33 @@ export default class Jogs extends Component {
 
   render () {
     const { view, editJog, loading } = this.state
+    const { jogs } = this.props
     if (loading || this.props.loading) {
       return <h1>Loading</h1>
-    }
-    if (view === 'list') {
-      return <JogsList onEdit={this.handleEdit} onAddClick={this.handleAddClick} {...this.props} />
     }
     if (view === 'add') {
       return <JogForm createJog={this.handleCreateJog} onCancel={this.gotoList} />
     }
-    return <JogForm
-      updateJog={this.handleUpdateJog}
-      deleteJog={this.handleDeleteJog}
-      onCancel={this.gotoList}
-      jog={editJog}
-    />
+    if (jogs.length === 0) {
+      return (
+        <p className='jog-empty'>No jogs tracked yet.
+          <button onClick={() => { this.setState({ view: 'add' }) }}>
+            Add one.
+          </button>
+        </p>
+      )
+    }
+    if (view === 'list') {
+      return <JogsList onEdit={this.handleEdit} onAddClick={this.handleAddClick} {...this.props} />
+    }
+    if (view === 'edit') {
+      return <JogForm
+        updateJog={this.handleUpdateJog}
+        deleteJog={this.handleDeleteJog}
+        onCancel={this.gotoList}
+        jog={editJog}
+      />
+    }
   }
 }
 

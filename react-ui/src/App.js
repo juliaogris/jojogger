@@ -118,7 +118,7 @@ export default class App extends Component {
         setJogs={this.setJogs}
         handleJogError={this.handleJogError}
         user={user}
-        loadingJogs={loadingJogs}
+        loading={loadingJogs}
         {...props}
       />
     )
@@ -140,7 +140,7 @@ export default class App extends Component {
   render () {
     const { user, loading, authError } = this.state
     if (loading) {
-      return <h1>Loading</h1>
+      return <h1>Signing you in.</h1>
     }
 
     if (!user) {
