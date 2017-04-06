@@ -59,7 +59,8 @@ function summarizeWeeklyJogs (jogs) {
     result[date].duration.add(moment.duration(jog.duration))
   }
 
-  for (let weekly of Object.values(result)) {
+  for (let weeklyKey of Object.keys(result)) {
+    const weekly = result[weeklyKey]
     let duration = String(Math.floor(weekly.duration.asHours()))
     duration += moment.utc(weekly.duration.asMilliseconds()).format(':mm:ss')
     weekly.duration = duration

@@ -17,9 +17,14 @@ export default class Users extends Component {
     this.handleEditClick = this.handleEditClick.bind(this)
     this.handleAddClick = this.handleAddClick.bind(this)
     this.crudUser = this.crudUser.bind(this)
+    this.gotoList = this.gotoList.bind(this)
     this.handleUpdateUser = this.handleUpdateUser.bind(this)
     this.handleDeleteUser = this.handleDeleteUser.bind(this)
     this.handleCreateUser = this.handleCreateUser.bind(this)
+  }
+
+  gotoList () {
+    this.setState({ view: 'list' })
   }
 
   handleEditClick (id) {

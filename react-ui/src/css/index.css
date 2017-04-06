@@ -82,6 +82,8 @@ a + a {
 a:hover,
 .active {
   color: #03a9f4;
+  border: none;
+  outline: none;
 }
 
 input, select {
@@ -118,7 +120,7 @@ input:focus, select:focus {
   font-size: 75%;
   margin: 2em 0.7em 0;
   padding: 0.5em;
-  width: 5em;
+  width: 5.5em;
   border: none;
   border-radius: 4px;
 }
