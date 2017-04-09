@@ -127,12 +127,13 @@ export default class App extends Component {
   }
 
   renderWeekly (props) {
-    const { startDate, endDate, jogsInRange } = this.state
+    const { startDate, endDate, jogsInRange, loadingJogs } = this.state
     return (
       <Weekly
         startDate={startDate}
         endDate={endDate}
         jogs={jogsInRange}
+        loading={loadingJogs}
         onDatesChange={this.handleDatesChange}
         {...props}
       />

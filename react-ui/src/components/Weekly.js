@@ -4,7 +4,10 @@ import moment from 'moment'
 import Row from './Jogs/Row'
 import Calendar from './Jogs/Calendar'
 
-const Weekly = ({ startDate, endDate, jogs, onDatesChange }) => {
+const Weekly = ({ startDate, endDate, jogs, onDatesChange, loading }) => {
+  if (loading) {
+    return <h1>Loading</h1>
+  }
   if (jogs.length === 0) {
     return <p className='info'>No jogs tracked.</p>
   }
@@ -21,8 +24,8 @@ const Weekly = ({ startDate, endDate, jogs, onDatesChange }) => {
         <thead>
           <tr>
             <td>Week</td>
-            <td>Distance</td>
             <td>Duration</td>
+            <td>Distance</td>
             <td>Speed</td>
           </tr>
         </thead>

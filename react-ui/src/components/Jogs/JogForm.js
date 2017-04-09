@@ -11,7 +11,7 @@ export default class JogForm extends Component {
     this.state = {
       duration: jog ? jog.duration : '01:00:00',
       date: jog ? jog.date : moment().format('YYYY-MM-DD'),
-      distance: jog ? jog.distance : '10.0',
+      distance: jog ? jog.distance : 10.0,
       durationError: null,
       dateError: null,
       distanceError: null
@@ -126,6 +126,7 @@ export default class JogForm extends Component {
           <input
             type='number'
             name='distance'
+            step='0.01'
             value={distance}
             onChange={this.handleInputChange}
             className={distanceError ? 'input-error' : ''}
