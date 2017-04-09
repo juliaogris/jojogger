@@ -97,8 +97,10 @@ export default class JogForm extends Component {
     const canDelete = !!this.props.jog
     const { date, duration, distance } = this.state
     const { dateError, durationError, distanceError } = this.state
+    const { heading } = this.props
     return (
       <form className='jojog-form' action={this.handleSubmit}>
+        {heading && <h2>{heading}</h2>}
         <label className={dateError ? 'label-error' : ''}>
           {dateError || 'Date'}
           <input

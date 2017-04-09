@@ -40,8 +40,8 @@ const Row = ({ onEdit, id, jog }) => {
   return (
     <tr>
       <td>{date}</td>
-      <td>{distance}</td>
       <td>{duration}</td>
+      <td>{distance}</td>
       <td>{speed}</td>
       { onEdit && <td> <EditButton onEdit={onEdit} id={id} /> </td> }
     </tr>

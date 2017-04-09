@@ -19,7 +19,10 @@ const JogsList = (props) => {
       <table>
         <thead>
           <tr>
-            <td>Date</td><td>Distance</td><td>Duration</td><td>Speed</td>
+            <td>Date</td>
+            <td>Duration</td>
+            <td>Distance</td>
+            <td>Speed</td>
             <td><AddButton onClick={onAddClick} /></td>
           </tr>
         </thead>

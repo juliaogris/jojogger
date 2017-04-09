@@ -71,17 +71,6 @@ export default class AdminJogs extends Component {
     this.setState({ loading: true })
     const { user, admin } = this.props
     apiFunc(user, jog, admin)
-      .then(() => this.fetchJogs())
-      .then((users) => {
-        this.props.setUsers(users)
-      })
-      .catch(error => {
-        if (this.mounted) {
-          this.setState({ error, loading: false })
-        }
-      })
-
-    apiFunc(user, jog, admin)
       .then(j => this.fetchJogs())
       .catch(error => {
         if (this.mounted) {
@@ -112,7 +101,10 @@ export default class AdminJogs extends Component {
       return <ErrorMessage error={error} onCancel={() => { this.setState({ error: null }) }} />
     }
     if (view === 'add') {
-      return <JogForm createJog={this.handleCreateJog} onCancel={this.gotoList} />
+      return <JogForm
+        createJog={this.handleCreateJog}
+        onCancel={this.gotoList}
+        heading={`User ${user.email}`} />
     }
     if (jogs.length === 0) {
       return (
@@ -133,7 +125,7 @@ export default class AdminJogs extends Component {
         onDatesChange={this.handleDatesChange}
         jogs={jogsInRange}
         noJog={jogs.length === 0}
-        heading={`Jogs for user ${user.email}`}
+        heading={`User ${user.email}`}
         startDate={startDate}
         endDate={endDate}
 
@@ -146,6 +138,7 @@ export default class AdminJogs extends Component {
         onCancel={this.gotoList}
         jogs={jogs}
         jog={editJog}
+        heading={`User ${user.email}`}
       />
     }
   }

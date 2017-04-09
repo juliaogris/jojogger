@@ -3,7 +3,7 @@ import Tick from '../../svgs/Tick'
 const TickButton = ({ onClick }) =>
   <div className='tick-button-wrap'>
     <button type='submit' className='tick-button' onClick={onClick}>
-      <Tick color='white' />
+      <Tick color='white' className='add-icon' />
     </button>
   </div>
 
