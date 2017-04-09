@@ -90,18 +90,15 @@ export function deleteJog (user, jog, admin) {
   .then(handleErrors)
 }
 
-export function getUsers (amdin) {
-  const { token } = amdin
+export function getUsers (admin) {
+  const { token } = admin
   return fetch(`/api/users/`, Opts(token, 'GET'))
   .then(handleErrors)
   .then(response => response.json())
 }
 
 export function createUser (admin, user) {
-  const { token } = admin
-  return fetch(`/api/users/`, Opts(token, 'POST', JSON.stringify(user)))
-  .then(handleErrors)
-  .then(response => response.json())
+  return signup(user.email, user.password)
 }
 
 export function updateUser (admin, user) {

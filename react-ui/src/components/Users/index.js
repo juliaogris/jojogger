@@ -22,7 +22,7 @@ export default class Users extends Component {
     this.gotoList = this.gotoList.bind(this)
     this.handleUpdateUser = this.handleUpdateUser.bind(this)
     this.handleDeleteUser = this.handleDeleteUser.bind(this)
-    this.handleCreateUser = this.handleCreateUser.bind(this)
+    this.handleAddUser = this.handleAddUser.bind(this)
   }
 
   gotoList () {
@@ -81,10 +81,6 @@ export default class Users extends Component {
       })
   }
 
-  handleCreateUser (user) {
-    this.crudUser(user, createUser)
-  }
-
   handleUpdateUser (user) {
     this.crudUser(user, updateUser)
   }
@@ -117,7 +113,7 @@ export default class Users extends Component {
       />
     }
     if (view === 'add') {
-      return <UserForm createUser={this.handleCreateUser} onCancel={this.gotoList} authedRole={authedRole} />
+      return <UserForm createUser={this.handleAddUser} onCancel={this.gotoList} authedRole={authedRole} />
     }
     if (view === 'edit') {
       return <UserForm

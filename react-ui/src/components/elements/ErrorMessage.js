@@ -9,7 +9,7 @@ const ErroMessage = ({ onCancel, error }) => {
     onCancel(null)
   }
   return (
-    <div className='error'>
+    <div className='page error'>
       {error.message}
       <button onClick={clickHandler} className='error-cancel-button'>×</button>
     </div>

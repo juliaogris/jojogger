@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { updateUser } from '../util/api'
+import { updateUser, deleteUser } from '../util/api'
 import { getEmailError, getPasswordError } from '../util/funcs'
 import TickButton from './elements/TickButton'
+import DeleteButton from './elements/DeleteButton'
 
 export default class Settings extends Component {
   constructor (props) {
@@ -9,9 +10,11 @@ export default class Settings extends Component {
     this.state = {
       error: null,
       email: this.props.user.email,
-      password: ''
+      password: '',
+      deleteConfirm: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDeleteClick = this.handleDeleteClick.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
@@ -39,13 +42,33 @@ export default class Settings extends Component {
       })
   }
 
+  handleDeleteClick () {
+    const { user, signOut } = this.props
+    deleteUser(user, user)
+    .then(() => {
+      signOut()
+    })
+      .catch((error) => {
+        this.setState({ error })
+      })
+  }
+
   handleInputChange (event) {
     const { name, value } = event.target
     this.setState({ [name]: value, error: null })
   }
 
   render () {
-    const { email, password, error } = this.state
+    const { email, password, error, deleteConfirm } = this.state
+    if (deleteConfirm) {
+      return (<div className='login'>
+        <p>Are you sure you want to delete this account?</p>
+        <div className='button-row'>
+          <button onClick={() => this.setState({ deleteConfirm: false })}> No </button>
+          <button onClick={this.handleDeleteClick}> Yes </button>
+        </div>
+      </div>)
+    }
 
     return (
       <form className='jojog-form' action={this.handleSubmit}>
@@ -66,6 +89,10 @@ export default class Settings extends Component {
           value={password}
           onChange={this.handleInputChange}
           />
+        <DeleteButton
+          show
+          onClick={(e) => { e.preventDefault(); this.setState({ deleteConfirm: true }) }}
+          item='Account' />
         <TickButton onClick={this.handleSubmit} />
       </form>
     )

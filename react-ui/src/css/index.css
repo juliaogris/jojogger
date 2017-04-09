@@ -345,6 +345,7 @@ thead td {
 .error-cancel-button {
   background: none;
   color: #777;
+  font-size: 150%;
 }
 h2 {
   padding: 1rem;
