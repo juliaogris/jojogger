@@ -1,11 +1,8 @@
 JoggingTracker
 ==============
 
-An application that tracks jogging times of users
-
-Deadline
---------
-10 April, 2017
+An application that tracks jogging times of users.   
+[Demo](https://jojogger.herokuapp.com/)
 
 Requirements
 ------------
@@ -32,6 +29,39 @@ Requirements
 * End to end tests
 * Keep design as tidy as possible.
 
+
+Development setup
+-----------------
+* Install Node >= 7.7
+
+#### Database setup
+* [Heroku app](https://dashboard.heroku.com/apps/jojogger)  
+* MondDB database on [MLab](https://www.mlab.com/)
+* Install Heroku CLI
+* `heroku auth`
+* Add heroku remote `https://git.heroku.com/jojogger.git`
+* `cp .env.sample .env`
+* Copy values from `heroku config` to `.env` file
+
+Alternatively install MongDB locally and modify `.env` accordingly
+
+#### Backend
+* `npm install`
+* `npm run dev`
+* test with `curl -H 'authorization: Basic YWRtaW5AeC5jbzoxMjM0NTY=' http://localhost:5000/api/users?pretty`
+* `npm run e2e`
+
+
+#### Frontend
+* `cd react-ui`
+* `npm install`
+* `npm start`
+* test http://localhost:3000 in your browser
+
+#### Deployment
+* git push heroku
+* test https://jojogger.herokuapp.com in your browser
+* test with `npm run e2e-prod`
 
 RESTful API
 ------------
@@ -71,8 +101,8 @@ Errors
 * 3xx: invalid input
 * 4xx: no data for ID
 
-Curls examples
---------------
+Curl examples
+-------------
 
 __POST api/users :__  create new users
 `curl -H 'content-type: application/json' -d '{"email": "xyz@x.co", "password": "123456"}' http://localhost:5000/api/users?pretty`
@@ -82,19 +112,3 @@ __GET api/users :__ list all users with admin account
 
 __GET api/users/:uid :__ get admin user with admin account
 `curl -H 'authorization: Basic YWRtaW5AeC5jbzoxMjM0NTY=' http://localhost:5000/api/users/58e0d0af542e0921b3909f73?pretty`
-
-
-TODO
-----
-* Nicer login UI like Auth0 screenshot for login
-* Nicer error message
-* JEST testing
-* hash email & password for local storage.
-
-* Check on IE and ios
-
-* Clean install - make sure all node packaging is good.
-
-* Docs on MONGODB_URI setup 
-* Heroku docs
-* write deploy and dev instructions
