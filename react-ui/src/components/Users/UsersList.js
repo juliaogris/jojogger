@@ -1,22 +1,25 @@
 import React, { PropTypes } from 'react'
 import AddButton from '../elements/AddButton'
 import EditButton from '../elements/EditButton'
+import JogsButton from '../elements/JogsButton'
 import ErrorMessage from '../elements/ErrorMessage'
 
-const Row = ({ user, onEdit }) =>
+const Row = ({ user, onEdit, onJogsClick, admin }) =>
   (<tr>
     <td>{user.email}</td>
-    <td>{user.role}</td>
+    { admin && <td>{user.role}</td> }
+    { admin && <td><JogsButton onJogsClick={onJogsClick} id={user.id} /></td> }
     <td> <EditButton onEdit={onEdit} id={user.id} /> </td>
   </tr>)
 
 const UsersList = (props) => {
-  const { users, onEdit, onAddClick, authedUser } = props
+  const { users, onEdit, onAddClick, authedUser, onJogsClick } = props
+  const admin = authedUser.role === 'admin'
   if (!users) {
     return null
   }
   let filteredUsers = users
-  if (authedUser.role !== 'admin') {
+  if (admin) {
     filteredUsers = users.filter(u => u.role === 'regular')
   }
   if (filteredUsers.length === 0) {
@@ -29,12 +32,20 @@ const UsersList = (props) => {
         <thead>
           <tr>
             <td className='no-top'>Email</td>
-            <td className='no-top'>Role</td>
+            {admin && <td className='no-top'>Role</td> }
+            {admin && <td className='no-top' /> }
             <td className='no-top'><AddButton onClick={onAddClick} /></td>
           </tr>
         </thead>
         <tbody>
-          { filteredUsers.map(user => <Row key={user.id} user={user} onEdit={onEdit} />) }
+          { filteredUsers.map(user =>
+            <Row
+              key={user.id}
+              user={user}
+              onEdit={onEdit}
+              admin={admin}
+              onJogsClick={onJogsClick}
+            />) }
         </tbody>
       </table>
     </div>
@@ -44,6 +55,7 @@ const UsersList = (props) => {
 UsersList.PropTypes = {
   users: PropTypes.array.isRequired,
   onEdit: PropTypes.func.isRequired,
+  onJogsClick: PropTypes.func.isRequired,
   onAddClick: PropTypes.func.isRequired
 }
 export default UsersList

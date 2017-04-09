@@ -15,7 +15,8 @@ function handleErrors (response) {
 const Opts = (token, method, body) => ({
   headers: {
     'Authorization': 'Basic ' + token,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Cache-Control': 'max-age=0, private, must-revalidate'
   },
   method: method || 'GET',
   body

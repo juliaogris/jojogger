@@ -326,3 +326,15 @@ thead td {
 .no-top {
   border-top: none;
 }
+
+.jogs-button {
+  border: 0px solid red;
+  background: none;
+  color:#777;
+  text-decoration: underline;
+  font-size: 100%;
+}
+
+.jogs-button:hover {
+  color:#03a9f4;
+}

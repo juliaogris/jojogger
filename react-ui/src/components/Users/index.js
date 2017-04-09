@@ -8,13 +8,14 @@ export default class Users extends Component {
   constructor () {
     super()
     this.state = {
-      view: 'list', // 'add', 'edit'
+      view: 'list', // 'add', 'edit, jogs'
       editUser: null,
       error: null,
       loading: false
     }
     this.fetchUsers = this.fetchUsers.bind(this)
     this.handleEditClick = this.handleEditClick.bind(this)
+    this.handleJogsClick = this.handleJogsClick.bind(this)
     this.handleAddClick = this.handleAddClick.bind(this)
     this.crudUser = this.crudUser.bind(this)
     this.gotoList = this.gotoList.bind(this)
@@ -32,6 +33,12 @@ export default class Users extends Component {
     const user = users.find(u => u.id === id)
     const editUser = { ...user }
     this.setState({ view: 'edit', editUser })
+  }
+
+  handleJogsClick (id) {
+    const { users } = this.props
+    const user = users.find(u => u.id === id)
+    this.setState({ view: 'jogs', editUser: user })
   }
 
   handleAddClick (event) {
@@ -108,7 +115,13 @@ export default class Users extends Component {
       return <p className='info'>Getting users...</p>
     }
     if (view === 'list') {
-      return <UsersList users={users} onEdit={this.handleEditClick} onAddClick={this.handleAddClick} {...this.props} />
+      return <UsersList
+        users={users}
+        onEdit={this.handleEditClick}
+        onAddClick={this.handleAddClick}
+        onJogsClick={this.handleJogsClick}
+        {...this.props}
+      />
     }
     if (view === 'add') {
       return <UserForm createUser={this.handleCreateUser} onCancel={this.gotoList} authedRole={authedRole} />
@@ -121,6 +134,9 @@ export default class Users extends Component {
         user={editUser}
         authedRole={authedRole}
       />
+    }
+    if (view === 'jogs') {
+      return <div>Jogs for user: {editUser.email}</div>
     }
   }
 }

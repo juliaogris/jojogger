@@ -53,18 +53,18 @@ function summarizeWeeklyJogs (jogs) {
     week.add(1, 'week')
   }
 
-  for (let jog of jogs) {
+  for (let i = 0; i < jogs.length; i++) {
+    const jog = jogs[i]
     const date = moment(jog.date).startOf('isoWeek').format('YYYY-MM-DD')
     result[date].distance += jog.distance
     result[date].duration.add(moment.duration(jog.duration))
   }
-
-  for (let weeklyKey of Object.keys(result)) {
-    const weekly = result[weeklyKey]
+  Object.keys(result).forEach((key) => {
+    const weekly = result[key]
     let duration = String(Math.floor(weekly.duration.asHours()))
     duration += moment.utc(weekly.duration.asMilliseconds()).format(':mm:ss')
     weekly.duration = duration
-  }
+  })
 
   return result
 }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import 'babel-polyfill'
 import ErrorMessage from '../elements/ErrorMessage'
 import JogsList from './JogsList'
 import JogForm from './JogForm'

@@ -14,10 +14,10 @@ const formatDuration = (duration) => {
     return '-'
   }
   let d = duration
-  if (d.startsWith('00:')) {
+  if (d.indexOf('00:') === 0) {
     d = d.substring(3)
   }
-  if (d.startsWith('0')) {
+  if (d.indexOf('0') === 0) {
     d = d.substring(1)
   }
   return d
