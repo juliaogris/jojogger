@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ErrorMessage from '../elements/ErrorMessage'
 import { getUsers, createUser, updateUser, deleteUser } from '../../util/api'
 import AdminJogs from './AdminJogs'
@@ -66,6 +67,10 @@ export default class Users extends Component {
 
   crudUser (user, apiFunc) {
     const { authedUser } = this.props
+    if (authedUser.role !== 'admin') {
+      user = { ...user }
+      delete user.role
+    }
     this.setState({ loading: true })
     apiFunc(authedUser, user)
       .then((u) => {
