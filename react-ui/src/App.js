@@ -68,13 +68,19 @@ export default class App extends Component {
     localStorage.removeItem('t')
   }
 
-  async fetchJogs (user) {
+  fetchJogs (user) {
     if (!user) {
       return
     }
     this.setState({ loadingJogs: true })
-    this.setJogs(await getJogs(user))
-    this.setState({ loadingJogs: false })
+    getJogs(user)
+      .then((jogs) => {
+        this.setJogs(jogs)
+        this.setState({ loadingJogs: false })
+      })
+      .catch((error) => {
+        console.error('App.fetchJogs error:', error)
+      })
   }
 
   setUsers (users) {

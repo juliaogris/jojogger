@@ -1,0 +1,29 @@
+exports[`test renders "Login" and matches snapshot 1`] = `
+<form
+  action={undefined}
+  className="login">
+  <input
+    name="email"
+    onChange={[Function]}
+    placeholder="email@example.com"
+    type="email"
+    value="" />
+  <input
+    name="password"
+    onChange={[Function]}
+    placeholder="your password"
+    type="password"
+    value="" />
+  <div
+    className="button-row">
+    <button
+      onClick={[Function]}>
+       Log in 
+    </button>
+    <button
+      onClick={[Function]}>
+       Sign up 
+    </button>
+  </div>
+</form>
+`;
