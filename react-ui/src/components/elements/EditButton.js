@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Pencil from '../../svgs/Pencil'
 const EditButton = ({ onEdit, id }) => {
   return (

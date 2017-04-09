@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Plus from '../../svgs/Plus'
 const PlusButton = ({ onClick }) =>
   <div className='add-button-wrap'>

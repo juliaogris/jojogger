@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import 'babel-polyfill'
 import ErrorMessage from '../elements/ErrorMessage'
 import JogsList from './JogsList'

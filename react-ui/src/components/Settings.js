@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { updateUser, deleteUser } from '../util/api'
 import { getEmailError, getPasswordError } from '../util/funcs'
 import TickButton from './elements/TickButton'
