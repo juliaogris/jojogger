@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
   res.send('hello world')
 })
 
-app.listen(3000)
+app.listen(process.env.PORT)
 
 // const express = require('express')
 // const path = require('path')
