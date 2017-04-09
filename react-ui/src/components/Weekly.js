@@ -6,7 +6,7 @@ import Calendar from './Jogs/Calendar'
 
 const Weekly = ({ startDate, endDate, jogs, onDatesChange }) => {
   if (jogs.length === 0) {
-    return <p className='info'>No jogs tracked yet.</p>
+    return <p className='info'>No jogs tracked.</p>
   }
   const weekly = summarizeWeeklyJogs(jogs)
   const weeklyKeys = Object.keys(weekly).sort().reverse()

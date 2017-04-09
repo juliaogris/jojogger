@@ -109,7 +109,7 @@ export default class App extends Component {
   }
 
   renderJogs (props) {
-    const { startDate, endDate, jogsInRange } = this.state
+    const { startDate, endDate, jogsInRange, jogs } = this.state
     const { user, loadingJogs } = this.state
     return (
       <Jogs
@@ -120,6 +120,7 @@ export default class App extends Component {
         setJogs={this.setJogs}
         user={user}
         loading={loadingJogs}
+        noJogs={jogs.length === 0}
         {...props}
       />
     )

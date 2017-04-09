@@ -19,7 +19,7 @@ const UsersList = (props) => {
     return null
   }
   let filteredUsers = users
-  if (admin) {
+  if (!admin) {
     filteredUsers = users.filter(u => u.role === 'regular')
   }
   if (filteredUsers.length === 0) {

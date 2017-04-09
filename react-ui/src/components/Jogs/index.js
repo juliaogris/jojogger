@@ -86,7 +86,7 @@ export default class Jogs extends Component {
 
   render () {
     const { view, editJog, loading, error } = this.state
-    const { jogs } = this.props
+    const { noJogs } = this.props
     if (loading || this.props.loading) {
       return <h1>Loading</h1>
     }
@@ -96,9 +96,9 @@ export default class Jogs extends Component {
     if (view === 'add') {
       return <JogForm createJog={this.handleCreateJog} onCancel={this.gotoList} />
     }
-    if (jogs.length === 0) {
+    if (noJogs) {
       return (
-        <p className='info'>No jogs tracked yet.
+        <p className='info'>No jogs tracked.
           <button onClick={() => { this.setState({ view: 'add' }) }}>
             Add one.
           </button>
@@ -123,5 +123,6 @@ Jogs.propTypes = {
   onDatesChange: PropTypes.func.isRequired,
   setJogs: PropTypes.func.isRequired,
   jogs: PropTypes.array.isRequired,
+  noJogs: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired
 }

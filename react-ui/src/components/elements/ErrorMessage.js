@@ -11,7 +11,7 @@ const ErroMessage = ({ onCancel, error }) => {
   return (
     <div className='error'>
       {error.message}
-      <button onClick={clickHandler}>×</button>
+      <button onClick={clickHandler} className='error-cancel-button'>×</button>
     </div>
   )
 }

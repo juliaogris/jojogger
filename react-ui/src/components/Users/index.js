@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import ErrorMessage from '../elements/ErrorMessage'
 import { getUsers, createUser, updateUser, deleteUser } from '../../util/api'
+import AdminJogs from './AdminJogs'
 import UsersList from './UsersList'
 import UserForm from './UserForm'
 
@@ -63,33 +64,25 @@ export default class Users extends Component {
     this.props.setUsers(users)
   }
 
-  handleCreateUser (user) {
-    const { authedUser } = this.props
-    this.props.setUsers([])
-    createUser(authedUser, user)
-      .then(j => {
-        this.fetchUsers()
-      })
-      .catch(error => {
-        this.mounted && this.setState({ error })
-      })
-  }
-
   crudUser (user, apiFunc) {
     const { authedUser } = this.props
     this.setState({ loading: true })
     apiFunc(authedUser, user)
-      .then(j => {
-        this.fetchUsers()
-        if (this.mounted) {
-          this.setState({ loading: false, view: 'list' })
-        }
+      .then((u) => {
+        return this.fetchUsers()
+      })
+      .then((users) => {
+        this.props.setUsers(users)
       })
       .catch(error => {
         if (this.mounted) {
           this.setState({ error, loading: false })
         }
       })
+  }
+
+  handleCreateUser (user) {
+    this.crudUser(user, createUser)
   }
 
   handleUpdateUser (user) {
@@ -106,8 +99,8 @@ export default class Users extends Component {
 
   render () {
     const { view, editUser, error, loading } = this.state
-    const { users } = this.props
-    const authedRole = this.props.authedUser.role
+    const { users, authedUser } = this.props
+    const authedRole = authedUser.role
     if (error) {
       return <ErrorMessage error={error} onCancel={() => { this.setState({ error: null }) }} />
     }
@@ -136,7 +129,10 @@ export default class Users extends Component {
       />
     }
     if (view === 'jogs') {
-      return <div>Jogs for user: {editUser.email}</div>
+      return <AdminJogs
+        onCancel={this.gotoList}
+        user={editUser}
+        admin={authedUser} />
     }
   }
 }

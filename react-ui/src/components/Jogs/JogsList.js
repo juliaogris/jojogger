@@ -10,9 +10,11 @@ const JogCalendar = ({ startDate, endDate, onDatesChange }) =>
   <Calendar startDate={startDate} endDate={endDate} onDatesChange={onDatesChange} />
 
 const JogsList = (props) => {
-  const { jogs, onEdit, onAddClick } = props
+  const { jogs, onEdit, onAddClick, onCancel, heading } = props
   return (
     <div className='page'>
+      {heading && <h2>{heading}</h2>}
+      {onCancel && <button onClick={onCancel} className='cancel-button'>×</button> }
       <JogCalendar {...props} />
       <table>
         <thead>
