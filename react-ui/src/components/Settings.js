@@ -49,9 +49,9 @@ export default class Settings extends Component {
     .then(() => {
       signOut()
     })
-      .catch((error) => {
-        this.setState({ error })
-      })
+    .catch((error) => {
+      this.setState({ error })
+    })
   }
 
   handleInputChange (event) {
