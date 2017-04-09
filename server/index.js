@@ -1,14 +1,15 @@
 var express = require('express')
 var app = express()
 
-app.configure('production', () =>
+if (app.get('env') === 'development') {
   app.use((req, res, next) => {
     if (req.header['x-forwarded-proto'] !== 'https') {
       res.redirect("https://#{req.header 'host'}#{req.url}")
     } else {
       next()
     }
-  }))
+  })
+}
 
 app.get('/', function (req, res) {
   res.send('hello world')
