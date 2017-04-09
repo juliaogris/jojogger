@@ -1,9 +1,14 @@
-var sslRedirect = require('heroku-ssl-redirect')
 var express = require('express')
 var app = express()
 
-// enable ssl redirect
-app.use(sslRedirect())
+app.configure('production', () =>
+  app.use((req, res, next) => {
+    if (req.header['x-forwarded-proto'] !== 'https') {
+      res.redirect("https://#{req.header 'host'}#{req.url}")
+    } else {
+      next()
+    }
+  }))
 
 app.get('/', function (req, res) {
   res.send('hello world')
