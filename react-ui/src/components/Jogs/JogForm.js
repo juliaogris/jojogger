@@ -40,10 +40,8 @@ export default class JogForm extends Component {
     }
     if (duration === '00:00:00') {
       errors.durationError = 'Duration 00:00:00 invalid'
-    } else if ((duration.length !== 8) ||
-      !moment(duration.substring(2), ':mm:ss').isValid() ||
-      isNaN(duration.substring(0, 2)) ||
-      Number(duration.substring(0, 2)) < 0) {
+    } else if (!/^\d\d:\d\d:\d\d$/.test(duration) ||
+      !moment(duration.substring(2), ':mm:ss').isValid()) {
       errors.durationError = 'Duration format 02:32:16'
     } else if (moment(duration.substring(2), ':mm:ss').seconds() === 0 &&
       moment(duration.substring(2), ':mm:ss').minutes() === 0 &&
