@@ -10,7 +10,8 @@
     "nodemon": "nodemon --watch server server",
     "dev": "nf run npm run nodemon",
     "e2e": "node_modules/newman/bin/newman.js run -e e2e/dev.env.json e2e/api.tests.json",
-    "e2e-prod": "node_modules/newman/bin/newman.js run -e e2e/prod.env.json e2e/api.tests.json"
+    "e2e-prod": "node_modules/newman/bin/newman.js run -e e2e/prod.env.json e2e/api.tests.json",
+    "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build"
   },
   "cacheDirectories": [
     "node_modules",
@@ -24,6 +25,7 @@
     "express": "^4.15.2",
     "express-prettify": "0.0.7",
     "express-validator": "^3.1.2",
+    "heroku-ssl-redirect": "0.0.3",
     "moment": "^2.18.1",
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.2",

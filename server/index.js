@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const sslRedirect = require('heroku-ssl-redirect')
 const emojiFavicon = require('emoji-favicon')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
@@ -9,7 +10,6 @@ const passport = require('passport')
 
 const dbInit = require('./util/dbInit')
 const apiRouter = require('./routers/apiRouter')
-const { sslRedirect } = require('./util/funcs')
 
 const app = express()
 const REACT_DIR = path.resolve(__dirname, '../react-ui/build')
@@ -21,9 +21,7 @@ app.use(expressValidator())
 app.use(morgan('dev'))
 app.use(pretty({ query: 'pretty' }))
 app.use(passport.initialize())
-if (app.get('env') === 'production') {
-  app.use(sslRedirect)
-}
+app.use(sslRedirect())
 
 dbInit(() => { app.listen(process.env.PORT) })
 app.use(emojiFavicon('runner'))

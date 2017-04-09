@@ -22,13 +22,5 @@ module.exports.notFound = (req, res) => {
     error: {
       code: 404,
       message: `Cannot ${req.method} ${req.path}`
-    } })
-}
-
-module.exports.sslRedirect = (req, res, next) => {
-  if (req.header['x-forwarded-proto'] !== 'https') {
-    res.redirect(`https://${req.hostname}${req.url}`)
-  } else {
-    next()
-  }
+    }})
 }
