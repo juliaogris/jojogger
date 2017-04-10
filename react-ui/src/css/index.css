@@ -350,3 +350,8 @@ thead td {
 h2 {
   padding: 1rem;
 }
+.settings-heading {
+  text-align: left;
+  border: 0px solid red;
+  padding: 0 0 1.5em;
+}

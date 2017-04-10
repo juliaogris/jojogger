@@ -73,8 +73,9 @@ export default class Settings extends Component {
 
     return (
       <form className='jojog-form' action={this.handleSubmit}>
+        <h2 className='settings-heading'>Settings</h2>
         {error && <div className='settings-error'>{error.message}</div>}
-        <label>email</label>
+        <label>Update email</label>
         <input
           placeholder='email@example.com'
           type='email'
@@ -82,7 +83,7 @@ export default class Settings extends Component {
           value={email}
           onChange={this.handleInputChange}
         />
-        <label>password</label>
+        <label>Update password</label>
         <input
           placeholder='your password'
           type='password'
