@@ -61,8 +61,10 @@ export default class Users extends Component {
   }
 
   async fetchUsers () {
-    const users = await getUsers(this.props.authedUser)
-    this.props.setUsers(users)
+    const { setUsers } = this.props
+    getUsers(this.props.authedUser)
+      .then((users) => setUsers(users))
+      .catch((error) => this.mounted && this.setState({ error }))
   }
 
   crudUser (user, apiFunc) {
