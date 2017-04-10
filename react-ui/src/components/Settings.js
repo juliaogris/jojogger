@@ -20,7 +20,7 @@ export default class Settings extends Component {
   }
 
   handleSubmit (event) {
-    event.preventDefault()
+    event && event.preventDefault()
     const authedUser = this.props.user
     const { email, password } = this.state
     let error = getEmailError(email)

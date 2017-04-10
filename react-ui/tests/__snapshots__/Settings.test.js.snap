@@ -1,0 +1,63 @@
+exports[`test renders "Settings" and matches snapshot 1`] = `
+<form
+  action={[Function]}
+  className="jojog-form">
+  <h2
+    className="settings-heading">
+    Settings
+  </h2>
+  <label>
+    Update email
+  </label>
+  <input
+    name="email"
+    onChange={[Function]}
+    placeholder="email@example.com"
+    type="email"
+    value="example@x.co" />
+  <label>
+    Update password
+  </label>
+  <input
+    name="password"
+    onChange={[Function]}
+    placeholder="your password"
+    type="password"
+    value="" />
+  <div
+    className="delete-row">
+    <span
+      className="delete-button"
+      onClick={[Function]}>
+      Delete this 
+      Account
+    </span>
+  </div>
+  <div
+    className="tick-button-wrap">
+    <button
+      className="tick-button"
+      onClick={[Function]}
+      type="submit">
+      <svg
+        className="add-icon"
+        height="100%"
+        viewBox="0 -1  41 42"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg">
+        <g
+          fill="none"
+          fillRule="evenodd"
+          stroke="none"
+          strokeWidth="1">
+          <polygon
+            fill="white"
+            fillRule="nonzero"
+            points="14.5299498 13.3700502 15.9299498 11.9700502 26.9458691 22.4458691 20.9458691 28.4458691 19.5458691 27.0458691 24.1458691 22.4458691"
+            transform="translate(20.737909, 20.207960) rotate(90.000000) translate(-20.737909, -20.207960) " />
+        </g>
+      </svg>
+    </button>
+  </div>
+</form>
+`;
