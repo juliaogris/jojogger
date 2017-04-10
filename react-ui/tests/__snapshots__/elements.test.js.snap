@@ -1,0 +1,113 @@
+exports[`AddButton matches snapshot 1`] = `
+<div
+  className="add-button-wrap">
+  <button
+    className="add-button"
+    onClick={[Function]}>
+    <svg
+      className="add-icon"
+      height="36px"
+      viewBox="0 0 500 600"
+      width="30px"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink">
+      <path
+        d="M 241.99219,407.91016 L 241.99219,310.44922 L 144.72656,310.44922 L 144.72656,294.43359 L 241.99219,294.43359 L 241.99219,197.36328 L 257.61719,197.36328 L 257.61719,294.43359 L 355.27344,294.43359 L 355.27344,310.44922 L 257.61719,310.44922 L 257.61719,407.91016 L 241.99219,407.91016 z"
+        fill="white" />
+    </svg>
+  </button>
+</div>
+`;
+
+exports[`DeleteButton matches snapshot 1`] = `
+<div
+  className="delete-row">
+  <span
+    className="delete-button"
+    onClick={[Function]}>
+    Delete this 
+    MyItem
+  </span>
+</div>
+`;
+
+exports[`EditButton matches snapshot 1`] = `
+<button
+  className="edit-button"
+  onClick={[Function]}>
+  <svg
+    className=""
+    height="14px"
+    viewBox="0 0 600 600"
+    width="14px"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink">
+    <g
+      fill="none"
+      fillRule="evenodd"
+      stroke="#777">
+      <path
+        d="m70.064 422.35 374.27-374.26 107.58 107.58-374.26 374.27-129.56 21.97z"
+        strokeWidth="30" />
+      <path
+        d="m70.569 417.81 110.61 110.61"
+        strokeWidth="25" />
+      <path
+        d="m491.47 108.37-366.69 366.68"
+        strokeWidth="25" />
+      <path
+        d="m54.222 507.26 40.975 39.546"
+        strokeWidth="25" />
+    </g>
+  </svg>
+</button>
+`;
+
+exports[`ErrorMessage matches snapshot 1`] = `
+<div
+  className="page error">
+  My Error
+  <button
+    className="error-cancel-button"
+    onClick={[Function]}>
+    ×
+  </button>
+</div>
+`;
+
+exports[`JogsButton matches snapshot 1`] = `
+<button
+  className="jogs-button"
+  onClick={[Function]}>
+  Jogs
+</button>
+`;
+
+exports[`TickButton matches snapshot 1`] = `
+<div
+  className="tick-button-wrap">
+  <button
+    className="tick-button"
+    onClick={[Function]}
+    type="submit">
+    <svg
+      className="add-icon"
+      height="100%"
+      viewBox="0 -1  41 42"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg">
+      <g
+        fill="none"
+        fillRule="evenodd"
+        stroke="none"
+        strokeWidth="1">
+        <polygon
+          fill="white"
+          fillRule="nonzero"
+          points="14.5299498 13.3700502 15.9299498 11.9700502 26.9458691 22.4458691 20.9458691 28.4458691 19.5458691 27.0458691 24.1458691 22.4458691"
+          transform="translate(20.737909, 20.207960) rotate(90.000000) translate(-20.737909, -20.207960) " />
+      </g>
+    </svg>
+  </button>
+</div>
+`;

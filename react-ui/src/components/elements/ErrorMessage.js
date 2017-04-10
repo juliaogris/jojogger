@@ -6,7 +6,7 @@ const ErroMessage = ({ onCancel, error }) => {
     return null
   }
   const clickHandler = (event) => {
-    event.preventDefault()
+    event && event.preventDefault()
     onCancel(null)
   }
   return (
@@ -17,8 +17,7 @@ const ErroMessage = ({ onCancel, error }) => {
   )
 }
 ErroMessage.PropTypes = {
-  onCancel: PropTypes.func.isRequired,
-  error: PropTypes.object.isRequired
+  onCancel: PropTypes.func.isRequired
 }
 
 export default ErroMessage
